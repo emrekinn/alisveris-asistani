@@ -240,15 +240,15 @@ with tab_kombin:
 # ==================== 3. KAPSÜL GARDIROP & ALIŞVERİŞ ====================
 with tab_gardrop:
     st.header("🛍️ Kapsül Gardırop & Alışveriş Sepeti")
-    st.caption("Mevsim filtreli tüm onaylı parçalar, beden uyarıları ve tek tıkla arama motorları.")
+    st.caption("4 Mevsim Bağımsız Kapsül Koleksiyonları, Beden Uyarıları ve Arama Motorları.")
     
     kategori_secimi = st.selectbox(
-        "Görüntülemek istediğiniz kategoriyi seçin:",
+        "Görüntülemek istediğiniz kapsül koleksiyonu seçin:",
         [
-            "🍂 Sonbahar Kapsülü",
-            "❄️ Kış Eklentileri",
-            "🌸 İlkbahar Eklentileri",
-            "☀️ Yaz Kapsülü",
+            "🍂 Sonbahar Kapsül Gardırobu",
+            "❄️ Kış Kapsül Gardırobu",
+            "🌸 İlkbahar Kapsül Gardırobu",
+            "☀️ Yaz Kapsül Gardırobu",
             "🏋️ Spor Salonu & Antrenman",
             "🏃 Rahat Giyim & Yürüyüş",
             "🏠 Ev Giyimi (Loungewear)",
@@ -261,7 +261,7 @@ with tab_gardrop:
     if "Sonbahar" in kategori_secimi:
         urun_kartlari_ciz(profil["gardrop_arama_listesi"]["sonbahar_kapsulu"], "giyim")
     elif "Kış" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["kis_eklentileri"], "giyim")
+        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["kis_kapsulu"], "giyim")
     elif "İlkbahar" in kategori_secimi:
         urun_kartlari_ciz(profil["gardrop_arama_listesi"]["ilkbahar_kapsulu"], "giyim")
     elif "Yaz" in kategori_secimi:

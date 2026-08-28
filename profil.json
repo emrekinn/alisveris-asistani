@@ -32,31 +32,44 @@
       {"parca": "Süet Chelsea Bot", "renk": "Taba / Sıcak Kahve", "arama": "erkek taba suet chelsea bot"},
       {"parca": "Minimalist Deri Sneaker", "renk": "Ekru / Beyaz Deri", "arama": "erkek ekru deri sneaker suet detayli"}
     ],
-    "kis_eklentileri": [
+    "kis_kapsulu": [
       {"parca": "Yarım/Tam Balıkçı Yaka Yün Kazak", "renk": "Ekru / Kırık Beyaz", "arama": "erkek ekru balikci yaka yun kazak"},
       {"parca": "Saç Örgülü Triko Kazak", "renk": "Karamel / Sıcak Taba", "arama": "erkek karamel sac orgu bisiklet yaka kazak"},
       {"parca": "Şal Yaka Kalın Hırka", "renk": "Koyu Haki / Acı Kahve", "arama": "erkek dugmeli sal yaka triko hirka"},
-      {"parca": "Chesterfield Yün Kaban", "renk": "Deve Tüyü (Camel) / Vizon", "arama": "erkek camel tek sira dugmeli yun kaban"},
+      {"parca": "Oxford Pamuk Gömlek (Katmanlık)", "renk": "Kırık Beyaz / Açık Krem", "arama": "erkek ekru oxford gomlek"},
+      {"parca": "Chesterfield Yün Kaban / Palto", "renk": "Deve Tüyü (Camel) / Vizon", "arama": "erkek camel tek sira dugmeli yun kaban"},
       {"parca": "Mat Kumaş Kışlık Parka", "renk": "Zeytin Yeşili / Küllü Lacivert", "arama": "erkek mat haki kapitone kislik parka"},
+      {"parca": "Astarsız Yün Blazer Ceket", "renk": "Koyu Vizon / Füme", "arama": "erkek yun blazer ceket"},
       {"parca": "Yün-Flanel Pantolon", "renk": "Koyu Vizon / Antrasit", "arama": "erkek flanel yun pantolon tapered"},
-      {"parca": "Commando Tabanlı Deri Bot", "renk": "Acı Kahve Deri", "arama": "erkek kahverengi deri commando taban bot"}
+      {"parca": "İnce Fitilli Kadife Pantolon", "renk": "Çikolata Kahve", "arama": "erkek kahverengi kadife pantolon"},
+      {"parca": "Klasik Ham Denim Jean", "renk": "Koyu İndigo", "arama": "erkek koyu indigo straight jean"},
+      {"parca": "Commando Tabanlı Deri Bot", "renk": "Acı Kahve Deri", "arama": "erkek kahverengi deri commando taban bot"},
+      {"parca": "Süet Chelsea Bot", "renk": "Taba / Koyu Vizon", "arama": "erkek taba suet chelsea bot"}
     ],
     "ilkbahar_kapsulu": [
       {"parca": "Kısa Kollu İnce Triko Polo", "renk": "Yanık Kiremit / Terracotta", "arama": "erkek kiremit kisa kollu triko polo tişört"},
       {"parca": "Açık Yaka (Johnny Collar) Polo", "renk": "Tozlu Petrol Mavisi / Adaçayı", "arama": "erkek dugmesiz acik yaka polo tişört"},
-      {"parca": "Hafif Keten-Pamuk Triko", "renk": "Taş Rengi / Kum Beji", "arama": "erkek tas rengi keten pamuk triko kazak"},
+      {"parca": "Keten-Pamuk Gömlek", "renk": "Adaçayı Yeşili / Mat Haki", "arama": "erkek haki keten pamuk gomlek"},
+      {"parca": "Oxford Pamuk Gömlek", "renk": "Kırık Beyaz / Açık Krem", "arama": "erkek ekru oxford gomlek"},
+      {"parca": "Hafif Keten-Pamuk Triko (Omuz Katmanı)", "renk": "Taş Rengi / Kum Beji", "arama": "erkek tas rengi keten pamuk triko kazak"},
       {"parca": "Safari (Field) Ceket / Kısa Trençkot", "renk": "Kum Beji / Taş Rengi", "arama": "erkek kum beji dort cepli safari ceket"},
+      {"parca": "Harrington Ceket", "renk": "Mat Koyu Zeytin Yeşili", "arama": "erkek haki harrington ceket"},
+      {"parca": "Astarsız Blazer Ceket", "renk": "Yumuşak Lacivert", "arama": "erkek astarsiz vatkasiz blazer ceket"},
       {"parca": "Tek Pileli Keten-Pamuk Pantolon", "renk": "Kırık Beyaz / Açık Vizon", "arama": "erkek tek pileli keten pantolon"},
+      {"parca": "Tok Gabardin Chino Pantolon", "renk": "Taş Rengi / Kum Beji", "arama": "erkek tas rengi tapered chino pantolon"},
+      {"parca": "Mat Pamuk Chino Pantolon", "renk": "Zeytin Yeşili / Haki", "arama": "erkek haki chino pantolon"},
       {"parca": "Süet Penny Loafer", "renk": "Taba / Koyu Vizon Süet", "arama": "erkek taba suet penny loafer ayakkabi"},
-      {"parca": "Örgü Deri / Süet Kemer", "renk": "Taba / Açık Kahve", "arama": "erkek taba orgu deri kemer"}
+      {"parca": "Minimalist Deri Sneaker", "renk": "Ekru / Beyaz Deri", "arama": "erkek ekru deri sneaker suet detayli"}
     ],
     "yaz_kapsulu": [
-      {"parca": "%100 Keten Gömlek", "renk": "Ekru / Adaçayı Yeşili", "arama": "erkek keten gomlek relaxed fit"},
+      {"parca": "%100 Keten Gömlek (Uzun Kollu)", "renk": "Ekru / Kırık Beyaz", "arama": "erkek keten gomlek relaxed fit"},
+      {"parca": "%100 Keten Gömlek (Uzun Kollu)", "renk": "Adaçayı Yeşili", "arama": "erkek adacayi keten gomlek"},
       {"parca": "Premium Pique Pamuk Polo", "renk": "Yumuşak Lacivert / Kum Beji", "arama": "erkek pique pamuklu klasik polo tisort"},
       {"parca": "Supima İnce Pamuk Tişört", "renk": "Taş Rengi / Yanık Kiremit", "arama": "erkek supima pamuk bisiklet yaka tisort"},
       {"parca": "Terzi Kesim (Tailored) Bermuda Şort", "renk": "Taş Rengi / Taba / Haki", "arama": "erkek tailored kemerli bermuda sort"},
       {"parca": "Beli Bağcıklı Rahat Keten Şort", "renk": "Kum Beji / Adaçayı Yeşili", "arama": "erkek beli lastikli ipli keten sort"},
       {"parca": "Dökümlü Düz Kesim Keten Pantolon", "renk": "Kum Beji / Kırık Beyaz", "arama": "erkek duz paca dökümlü keten pantolon"},
+      {"parca": "Tek Pileli Dökümlü Keten Pantolon", "renk": "Kırık Beyaz / Açık Vizon", "arama": "erkek tek pileli keten pantolon"},
       {"parca": "Deri Örgü Loafer (Woven)", "renk": "Taba / Açık Kahve", "arama": "erkek orgu deri loafer makosen"},
       {"parca": "Süet Espadril / Deri Terlik", "renk": "Taba / Koyu Vizon", "arama": "erkek suet tabanli espadril terlik"}
     ],
