@@ -488,19 +488,32 @@ with tab_ai:
                 with st.chat_message("assistant"):
                     with st.spinner("Stilistiniz değerlendiriyor..."):
                         try:
-                            # Gemini Chat API Çağrısı
-                            response = client.models.generate_content(
-                                model="gemini-3.6-flash",
-                                contents=gonderilecek_mesaj,
-                                config=genai.types.GenerateContentConfig(
-                                    system_instruction=sistem_promptu,
-                                    temperature=0.7
-                                )
-                            )
-                            st.markdown(response.text)
-                            st.session_state.chat_messages.append({"role": "assistant", "content": response.text})
+                            # Yoğunluk durumunda sırayla devreye girecek model havuzu
+                            model_listesi = ["gemini-3.6-flash", "gemini-3.6-flash-lite", "gemini-1.5-flash"]
+                            yanit_geldi = False
+
+                            for model_adi in model_listesi:
+                                try:
+                                    response = client.models.generate_content(
+                                        model=model_adi,
+                                        contents=gonderilecek_mesaj,
+                                        config=genai.types.GenerateContentConfig(
+                                            system_instruction=sistem_promptu,
+                                            temperature=0.7
+                                        )
+                                    )
+                                    st.markdown(response.text)
+                                    st.session_state.chat_messages.append({"role": "assistant", "content": response.text})
+                                    yanit_geldi = True
+                                    break
+                                except Exception:
+                                    continue  # Model meşgulse bir sonrakine geç
+
+                            if not yanit_geldi:
+                                st.warning("Google sunucularındaki anlık aşırı yoğunluk nedeniyle yanıt alınamadı. Lütfen 10-15 saniye sonra tekrar deneyin.")
+
                         except Exception as e:
-                            st.error(f"Yapay zeka yanıt verirken bir hata oluştu: {str(e)}")
+                            st.error(f"Bağlantı hatası: {str(e)}")
 
 # --- 2. AKILLI KOMBİN MOTORU ---
 with tab_kombin:
