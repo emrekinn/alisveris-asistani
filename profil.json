@@ -1,0 +1,127 @@
+{
+  "kullanici_profili": {
+    "yas": 38,
+    "meslek": "Ingilizce Ogretmeni",
+    "stil": "Smart-Casual / Old Money",
+    "renk_paleti": "Soft Autumn",
+    "boy_cm": 180,
+    "kilo_kg": 86,
+    "fizik_tipi": "Atletik V-Vucut / Sporcu"
+  },
+  "vucut_olculeri": {
+    "ust_giyim": {"gogus_cevresi_cm": 105, "omuz_genisligi_cm": 54, "bel_cevresi_cm": 92, "kol_boyu_cm": 63, "boyun_cevresi_cm": 45},
+    "alt_giyim": {"pantolon_bel_cm": 98, "basen_kalca_cm": 105, "ust_bacak_uyluk_cm": 61, "ic_bacak_boyu_cm": 85},
+    "ayak_ve_el": {"ayak_uzunlugu_cm": 28.5, "ayak_tarak_genisligi_cm": 11.5, "tahmini_ayakkabi_no": 44, "el_cevresi_cm": 22},
+    "aksesuar": {"bas_cevresi_cm": 60, "bilek_cevresi_cm": 18, "gozluk_cerceve_genisligi_mm": 200}
+  },
+  "gardrop_arama_listesi": {
+    "sonbahar_kapsulu": [
+      {"parca": "Ağır Gramajlı Basic Tişört", "renk": "Ekru / Kırık Beyaz", "arama": "erkek heavyweight ekru tisort"},
+      {"parca": "Oxford Pamuk Gömlek", "renk": "Kırık Beyaz / Krem", "arama": "erkek ekru oxford gomlek"},
+      {"parca": "Keten-Pamuk Gömlek", "renk": "Adaçayı Yeşili / Haki", "arama": "erkek haki keten pamuk gomlek"},
+      {"parca": "İnce Örgü Uzun Kollu Polo", "renk": "Sıcak Karamel / Taba", "arama": "erkek karamel triko polo yaka kazak"},
+      {"parca": "Yarım Fermuarlı Triko", "renk": "Vizon / Açık Mocha", "arama": "erkek vizon yarim fermuarli triko"},
+      {"parca": "Chambray Denim Gömlek", "renk": "Yumuşak Açık İndigo", "arama": "erkek mavi chambray denim gomlek"},
+      {"parca": "Süet Overshirt (Gömlek Ceket)", "renk": "Taba / Konyak", "arama": "erkek taba suet overshirt gomlek ceket"},
+      {"parca": "Astarsız Blazer Ceket", "renk": "Yumuşak Lacivert / Vizon", "arama": "erkek astarsiz vatkasiz blazer ceket"},
+      {"parca": "Harrington Ceket", "renk": "Mat Koyu Zeytin Yeşili", "arama": "erkek haki harrington ceket"},
+      {"parca": "Tok Gabardin Chino Pantolon", "renk": "Taş Rengi / Kum Beji", "arama": "erkek tas rengi tapered chino pantolon"},
+      {"parca": "Mat Pamuk Chino Pantolon", "renk": "Zeytin Yeşili / Haki", "arama": "erkek haki chino pantolon"},
+      {"parca": "Klasik Ham Denim Jean", "renk": "Koyu İndigo", "arama": "erkek koyu indigo straight jean"},
+      {"parca": "İnce Fitilli Kadife Pantolon", "renk": "Çikolata Kahve / Vizon", "arama": "erkek kahverengi kadife pantolon"},
+      {"parca": "Süet Chelsea Bot", "renk": "Taba / Sıcak Kahve", "arama": "erkek taba suet chelsea bot"},
+      {"parca": "Minimalist Deri Sneaker", "renk": "Ekru / Beyaz Deri", "arama": "erkek ekru deri sneaker suet detayli"}
+    ],
+    "kis_eklentileri": [
+      {"parca": "Yarım/Tam Balıkçı Yaka Yün Kazak", "renk": "Ekru / Kırık Beyaz", "arama": "erkek ekru balikci yaka yun kazak"},
+      {"parca": "Saç Örgülü Triko Kazak", "renk": "Karamel / Sıcak Taba", "arama": "erkek karamel sac orgu bisiklet yaka kazak"},
+      {"parca": "Şal Yaka Kalın Hırka", "renk": "Koyu Haki / Acı Kahve", "arama": "erkek dugmeli sal yaka triko hirka"},
+      {"parca": "Chesterfield Yün Kaban", "renk": "Deve Tüyü (Camel) / Vizon", "arama": "erkek camel tek sira dugmeli yun kaban"},
+      {"parca": "Mat Kumaş Kışlık Parka", "renk": "Zeytin Yeşili / Küllü Lacivert", "arama": "erkek mat haki kapitone kislik parka"},
+      {"parca": "Yün-Flanel Pantolon", "renk": "Koyu Vizon / Antrasit", "arama": "erkek flanel yun pantolon tapered"},
+      {"parca": "Commando Tabanlı Deri Bot", "renk": "Acı Kahve Deri", "arama": "erkek kahverengi deri commando taban bot"}
+    ],
+    "ilkbahar_kapsulu": [
+      {"parca": "Kısa Kollu İnce Triko Polo", "renk": "Yanık Kiremit / Terracotta", "arama": "erkek kiremit kisa kollu triko polo tişört"},
+      {"parca": "Açık Yaka (Johnny Collar) Polo", "renk": "Tozlu Petrol Mavisi / Adaçayı", "arama": "erkek dugmesiz acik yaka polo tişört"},
+      {"parca": "Hafif Keten-Pamuk Triko", "renk": "Taş Rengi / Kum Beji", "arama": "erkek tas rengi keten pamuk triko kazak"},
+      {"parca": "Safari (Field) Ceket / Kısa Trençkot", "renk": "Kum Beji / Taş Rengi", "arama": "erkek kum beji dort cepli safari ceket"},
+      {"parca": "Tek Pileli Keten-Pamuk Pantolon", "renk": "Kırık Beyaz / Açık Vizon", "arama": "erkek tek pileli keten pantolon"},
+      {"parca": "Süet Penny Loafer", "renk": "Taba / Koyu Vizon Süet", "arama": "erkek taba suet penny loafer ayakkabi"},
+      {"parca": "Örgü Deri / Süet Kemer", "renk": "Taba / Açık Kahve", "arama": "erkek taba orgu deri kemer"}
+    ],
+    "yaz_kapsulu": [
+      {"parca": "%100 Keten Gömlek", "renk": "Ekru / Adaçayı Yeşili", "arama": "erkek keten gomlek relaxed fit"},
+      {"parca": "Premium Pique Pamuk Polo", "renk": "Yumuşak Lacivert / Kum Beji", "arama": "erkek pique pamuklu klasik polo tisort"},
+      {"parca": "Supima İnce Pamuk Tişört", "renk": "Taş Rengi / Yanık Kiremit", "arama": "erkek supima pamuk bisiklet yaka tisort"},
+      {"parca": "Terzi Kesim (Tailored) Bermuda Şort", "renk": "Taş Rengi / Taba / Haki", "arama": "erkek tailored kemerli bermuda sort"},
+      {"parca": "Beli Bağcıklı Rahat Keten Şort", "renk": "Kum Beji / Adaçayı Yeşili", "arama": "erkek beli lastikli ipli keten sort"},
+      {"parca": "Dökümlü Düz Kesim Keten Pantolon", "renk": "Kum Beji / Kırık Beyaz", "arama": "erkek duz paca dökümlü keten pantolon"},
+      {"parca": "Deri Örgü Loafer (Woven)", "renk": "Taba / Açık Kahve", "arama": "erkek orgu deri loafer makosen"},
+      {"parca": "Süet Espadril / Deri Terlik", "renk": "Taba / Koyu Vizon", "arama": "erkek suet tabanli espadril terlik"}
+    ],
+    "rahat_giyim_ve_spor": [
+      {"parca": "Yarım Fermuarlı Sweatshirt", "renk": "Ekru / Açık Vizon", "arama": "erkek ekru half zip pamuklu sweatshirt"},
+      {"parca": "Premium Bisiklet Yaka Sweatshirt", "renk": "Adaçayı Yeşili / Karamel", "arama": "erkek agir gramajli bisiklet yaka sweatshirt"},
+      {"parca": "Waffle Dokulu Henley Tişört", "renk": "Taş Rengi / Mat Zeytin", "arama": "erkek waffle henley uc dugmeli tisort"},
+      {"parca": "Beli İpli & Lastikli Rahat Chino", "renk": "Kum Beji / Koyu Vizon", "arama": "erkek beli bagcikli rahat chino pantolon"},
+      {"parca": "Düz Paça Tok Eşofman Altı", "renk": "Melanj Taş Rengi / Antrasit", "arama": "erkek duz paca pamuklu esofman alti"},
+      {"parca": "Mat Kumaş Şişme Yelek", "renk": "Mat Zeytin Yeşili / Vizon", "arama": "erkek mat kumas sisme yelek"},
+      {"parca": "Diz Destekli Yürüyüş Ayakkabısı", "renk": "Vizon / Gri", "arama": "Asics Gel-Kayano 31 erkek"}
+    ],
+    "ev_giyimi": [
+      {"parca": "Waffle Uzun Kollu Henley Ev Tişörtü", "renk": "Ekru / Mat Zeytin / Vizon", "arama": "erkek waffle henley uzun kollu ev tisortu"},
+      {"parca": "Tapered Kesim Modal/Pamuk Eşofman Altı", "renk": "Taş Rengi / Koyu Vizon", "arama": "erkek duz paca modal pamuk lounge pantolon"},
+      {"parca": "Şal Yaka Yumuşak Ev Hırkası", "renk": "Açık Mocha / Çikolata Kahve", "arama": "erkek sal yaka triko ev hirkasi"},
+      {"parca": "Modal İpeksi Kısa Kollu Ev Tişörtü", "renk": "Taş Rengi / Kum Beji", "arama": "erkek modal basic rahat ev tisortu"},
+      {"parca": "Beli Bağcıklı Keten-Pamuk Ev Şortu", "renk": "Kum Beji / Adaçayı", "arama": "erkek beli bagcikli keten ev sortu"},
+      {"parca": "Mantar Tabanlı Süet Kapalı Ev Terliği", "renk": "Taba / Vizon Süet", "arama": "erkek suet kapali burun mantar taban sabo terlik"}
+    ],
+    "ic_giyim_ve_corap": [
+      {"parca": "Uzun Paçalı Modal Boxer (L Beden)", "renk": "Siyah / Füme / Lacivert", "arama": "erkek uzun pacali modal boxer"},
+      {"parca": "Görünmez Kaymayan Babet Çorabı (No-Show)", "renk": "Ten / Bej / Siyah", "arama": "erkek silikonlu kaymayan babet corap"},
+      {"parca": "Fitilli Pamuk / Melanj Yün Soket Çorap", "renk": "Ekru / Kum Beji / Haki", "arama": "erkek fitilli pamuk soket corap"},
+      {"parca": "Termal / Tok İç Tişört (Görünmez Yaka)", "renk": "Kırık Beyaz / Ten Rengi", "arama": "erkek derin v yaka termal fanila tisort"}
+    ]
+  },
+  "aksesuar_listesi": [
+    {"parca": "Taba Süet Kemer (3-3.5 cm)", "renk": "Taba Süet", "arama": "erkek taba suet kemer mat toka"},
+    {"parca": "Örgü Hakiki Deri Kemer", "renk": "Taba / Açık Kahve", "arama": "erkek taba orgu hakiki deri kemer"},
+    {"parca": "Klasik Deri Saat (Krem Kadran)", "renk": "Kahverengi Deri Kayış", "arama": "erkek kahverengi deri kordonlu saat klasik"},
+    {"parca": "Tortoise Shell / Pilot Güneş Gözlüğü", "renk": "Amber / Kahve Cam", "arama": "erkek pilot metal cerceve kahve cam gunes gozlugu"},
+    {"parca": "Yün Astarlı Hakiki Deri Eldiven", "renk": "Taba / Acı Kahve", "arama": "erkek taba yun astarli deri eldiven"},
+    {"parca": "Kaşmir / Yün Ekose Atkı", "renk": "Vizon / Haki / Karamel", "arama": "erkek vizon haki ekose yun atki"},
+    {"parca": "Yün Fitilli Bere", "renk": "Ekru / Mat Haki", "arama": "erkek ekru fitilli yun bere"},
+    {"parca": "Logosuz Pamuklu Beyzbol Şapkası", "renk": "Taş Rengi / Haki", "arama": "erkek tas rengi pamuklu beyzbol sapkasi"}
+  ],
+  "kisisel_bakim_ve_hijyen_listesi": [
+    {"kategori": "Yüz Temizleme Jeli", "urun": "CeraVe Blemish Control Cleanser (236 ml)", "arama_terimi": "CeraVe Blemish Control Temizleyici 236 ml"},
+    {"kategori": "Yüz Temizleme (Alternatif)", "urun": "Bioderma Sébium Gel Moussant (500 ml)", "arama_terimi": "Bioderma Sebium Gel Moussant 500 ml"},
+    {"kategori": "Yüz Nemlendiricisi", "urun": "CeraVe Nemlendirici Losyon (236 ml)", "arama_terimi": "CeraVe Nemlendirici Losyon pompali"},
+    {"kategori": "Güneş Koruyucu", "urun": "La Roche-Posay Anthelios Oil Control SPF 50+", "arama_terimi": "La Roche Posay UVMune 400 Oil Control Fluid"},
+    {"kategori": "Hücre Yenileyici Serum", "urun": "The Ordinary Retinol %0.2 in Squalane (30 ml)", "arama_terimi": "The Ordinary Retinol 0.2 Squalane"},
+    {"kategori": "Göz Çevresi Kremi", "urun": "Neutrogena Retinol Boost Göz Kremi (15 ml)", "arama_terimi": "Neutrogena Retinol Boost goz kremi"},
+    {"kategori": "Şampuan", "urun": "Sebamed Yağlı Saçlar / Kepek Şampuanı (400 ml)", "arama_terimi": "Sebamed Yagli Saclar Icin Sampuan 400 ml"},
+    {"kategori": "Deniz Tuzu Spreyi", "urun": "Nishman Sea Salt Spray (200 ml)", "arama_terimi": "Nishman Deniz Tuzu Spreyi"},
+    {"kategori": "Hacim Pudrası", "urun": "Nishman Mattifying Volume Powder (20 gr)", "arama_terimi": "Nishman Sac Sekillendirici Hacim Pudrasi"},
+    {"kategori": "Yaka / Ense Bakım Toniği", "urun": "The Ordinary Glycolic Acid %7 Toning Solution (240 ml)", "arama_terimi": "The Ordinary Glycolic Acid 7 Toning Solution"},
+    {"kategori": "Aşırı Terleme Önleyici", "urun": "Driclor Roll-on (20 ml)", "arama_terimi": "Driclor Antiperspirant Roll-on 20 ml"},
+    {"kategori": "Günlük Deodorant", "urun": "Deotak Krem Deodorant Invisible", "arama_terimi": "Deotak Krem Deodorant Invisible"},
+    {"kategori": "Talksız Kasık Pudrası", "urun": "Burt's Bees Baby Dusting Powder", "arama_terimi": "Burts Bees Dusting Powder talksiz"},
+    {"kategori": "Sürtünme Önleyici Spor Kremi", "urun": "Aptonia Anti-Chafing Krem (100 ml)", "arama_terimi": "Decathlon Aptonia surtunme onleyici krem"},
+    {"kategori": "Vücut Tıraş Makinesi", "urun": "Philips Bodygroom Series 5000 (BG5020/15)", "arama_terimi": "Philips BG5020/15 Bodygroom"},
+    {"kategori": "İç Giyim (Kalkan)", "urun": "Uzun Paçalı Modal Boxer (L Beden)", "arama_terimi": "erkek uzun pacali modal boxer"}
+  ],
+  "parfum_onerileri": {
+    "sicak_mevsimler_ilkbahar_yaz": [
+      {"parfum": "Tom Ford Grey Vetiver", "kategori": "İmza Sıcak Hava Parfümü", "arama": "Tom Ford Grey Vetiver EDP erkek"},
+      {"parfum": "Terre d'Hermès Eau Givrée", "kategori": "Buzlu Mineral & Narenciye", "arama": "Terre d Hermes Eau Givree EDP"},
+      {"parfum": "Chanel Platinum Égoïste", "kategori": "Klasik Tıraş Ferahlığı & Maskülen", "arama": "Chanel Platinum Egoiste EDT"}
+    ],
+    "soguk_mevsimler_sonbahar_kis": [
+      {"parfum": "Dior Homme 2020 / Intense", "kategori": "Sedir, Kaşmir & İris (Akademik)", "arama": "Dior Homme Intense EDP"},
+      {"parfum": "Dolce & Gabbana The One EDP", "kategori": "Sıcak Tütün & Kehribar (Akşam)", "arama": "Dolce Gabbana The One EDP erkek"},
+      {"parfum": "Tom Ford Oud Wood", "kategori": "Sofistike Ahşap & Baharat", "arama": "Tom Ford Oud Wood EDP"}
+    ]
+  }
+}
