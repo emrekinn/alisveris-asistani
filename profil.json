@@ -60,6 +60,14 @@
       {"parca": "Deri Örgü Loafer (Woven)", "renk": "Taba / Açık Kahve", "arama": "erkek orgu deri loafer makosen"},
       {"parca": "Süet Espadril / Deri Terlik", "renk": "Taba / Koyu Vizon", "arama": "erkek suet tabanli espadril terlik"}
     ],
+    "spor_salonu_ve_antrenman": [
+      {"parca": "Dikişsiz (Seamless) Reglan Kollu Spor Tişörtü", "renk": "Antrasit / Mat Haki / Koyu Füme", "arama": "erkek seamless reglan kol antrenman tisortu"},
+      {"parca": "2'si 1 Arada Kompresyon Taytlı Antrenman Şortu", "renk": "Siyah / Koyu Gri", "arama": "erkek 2 in 1 kompresyon taytli spor sort"},
+      {"parca": "Nefes Alan Kolsuz Spor Atleti (Tank Top)", "renk": "Mat Zeytin Yeşili / Taş Rengi", "arama": "erkek nefes alan gym tank top atlet"},
+      {"parca": "Dri-FIT / Nem Emici Spor Çorabı (3'lü Paket)", "renk": "Siyah / Koyu Gri", "arama": "erkek dri-fit yastiklamali antrenman corabi"},
+      {"parca": "Hafif & Esnek Antrenman Eşofman Altı", "renk": "Antrasit / Koyu Vizon", "arama": "erkek dar paca esnek gym antrenman esofman alti"},
+      {"parca": "Sürtünme Önleyici Spor Kremi (Aptonia)", "renk": "100 ml Tüp", "arama": "Decathlon Aptonia surtunme onleyici krem"}
+    ],
     "rahat_giyim_ve_spor": [
       {"parca": "Yarım Fermuarlı Sweatshirt", "renk": "Ekru / Açık Vizon", "arama": "erkek ekru half zip pamuklu sweatshirt"},
       {"parca": "Premium Bisiklet Yaka Sweatshirt", "renk": "Adaçayı Yeşili / Karamel", "arama": "erkek agir gramajli bisiklet yaka sweatshirt"},
