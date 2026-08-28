@@ -2,9 +2,10 @@ import streamlit as st
 import json
 import urllib.parse
 import random
+from google import genai
 
 st.set_page_config(
-    page_title="Kişisel Stil, Alışveriş, Kombin & Bakım Asistanı",
+    page_title="Kişisel Stil, AI Danışman & Bakım Asistanı",
     page_icon="👔",
     layout="wide"
 )
@@ -69,132 +70,106 @@ def urun_kartlari_ciz(liste, kategori_tipi="giyim"):
                 
                 link_butonlari(arama_terimi, kategori_tipi)
 
-# --- ZENGİN DİNAMİK KOMBİN HAVUZU ---
+# Kombin Havuzu
 DETAYLI_KOMBIN_HAVUZU = {
     "Sonbahar": {
         "Sınıf / Okul (Akademik Smart-Casual)": [
             {
                 "baslik": "Klasik Akademik Başlangıç & Ton-Sür-Ton",
                 "ust": "Kırık Beyaz / Açık Krem Oxford Pamuk Gömlek",
-                "ust_detay": "Regular Fit (L Beden), üstten 2 düğme açık, kollar tek tur İtalyan kıvrık[cite: 1].",
+                "ust_detay": "Regular Fit (L Beden), üstten 2 düğme açık, kollar tek tur İtalyan kıvrık.",
                 "alt": "Taş Rengi / Kum Beji Tok Gabardin Chino Pantolon",
-                "alt_detay": "Tapered Kesim (34/32 Beden), ayakkabı üstüne yığılmayan paça boyu[cite: 1].",
+                "alt_detay": "Tapered Kesim (34/32 Beden), ayakkabı üstüne yığılmayan paça boyu.",
                 "dis": "Astarsız Yumuşak Lacivert Blazer Ceket",
-                "dis_detay": "52 / L Beden, vatkasız dökümlü omuz[cite: 1].",
+                "dis_detay": "52 / L Beden, vatkasız dökümlü omuz.",
                 "ayakkabi": "Ekru / Kırık Beyaz Minimalist Deri Sneaker (No: 44)",
-                "aksesuar": "Taba Hakiki Süet Kemer + Kahverengi Deri Kordonlu Saat[cite: 1]",
-                "ev_giyimi": "Ekru Waffle Uzun Kollu Henley Tişört + Melanj Taş Rengi Eşofman Altı + Süet Kapalı Terlik[cite: 1]",
-                "stil_sirri": "Krem ve taş rengi açık tonların uyumu boyunuzu daha uzun gösterir[cite: 1]."
+                "aksesuar": "Taba Hakiki Süet Kemer + Kahverengi Deri Kordonlu Saat",
+                "ev_giyimi": "Ekru Waffle Uzun Kollu Henley Tişört + Melanj Taş Rengi Eşofman Altı + Süet Kapalı Terlik",
+                "stil_sirri": "Krem ve taş rengi açık tonların uyumu boyunuzu daha uzun gösterir."
             },
             {
                 "baslik": "İtalyan Triko & Haki Kontrastı",
                 "ust": "Sıcak Karamel / Taba İnce Örgü Uzun Kollu Polo Triko",
-                "ust_detay": "L Beden, triko polo yaka kravatsız lüks bir duruş sunar[cite: 1].",
+                "ust_detay": "L Beden, triko polo yaka kravatsız lüks bir duruş sunar.",
                 "alt": "Zeytin Yeşili / Koyu Haki Mat Pamuk Chino Pantolon",
-                "alt_detay": "Tapered Kesim (34/32 Beden)[cite: 1].",
+                "alt_detay": "Tapered Kesim (34/32 Beden).",
                 "dis": "Taş Rengi Kısa Pamuklu Trençkot / Harrington Ceket",
-                "dis_detay": "L Beden, serin sabahlar için hafif katman[cite: 1].",
+                "dis_detay": "L Beden, serin sabahlar için hafif katman.",
                 "ayakkabi": "Taba Süet Penny Loafer (No: 44.5)",
-                "aksesuar": "Taba Örgü Deri Kemer + Kahve Deri Kayışlı Saat[cite: 1]",
-                "ev_giyimi": "Vizon Waffle Henley Tişört + Koyu Vizon Modal Lounge Eşofman Altı[cite: 1]",
-                "stil_sirri": "Karamel ile haki yeşilinin mat kontrastı Soft Autumn paletinin en zengin tonlarıdır[cite: 1]."
+                "aksesuar": "Taba Örgü Deri Kemer + Kahve Deri Kayışlı Saat",
+                "ev_giyimi": "Vizon Waffle Henley Tişört + Koyu Vizon Modal Lounge Eşofman Altı",
+                "stil_sirri": "Karamel ile haki yeşilinin mat kontrastı Soft Autumn paletinin en zengin tonlarıdır."
             },
             {
                 "baslik": "Katmanlı Kışa Geçiş Şıklığı",
                 "ust": "Kırık Beyaz Oxford Gömlek üzerine Vizon Yarım Fermuarlı Triko",
-                "ust_detay": "Gömlek L Beden içeri sokulmuş, triko yakasından gösterilmiş[cite: 1].",
+                "ust_detay": "Gömlek L Beden içeri sokulmuş, triko yakasından gösterilmiş.",
                 "alt": "Çikolata Kahve Mikro Fitilli Kadife Pantolon",
-                "alt_detay": "Tapered Kesim (34/32 Beden)[cite: 1].",
+                "alt_detay": "Tapered Kesim (34/32 Beden).",
                 "dis": "Astarsız Balıksırtı Vizon Blazer Ceket",
-                "dis_detay": "52 / L Beden[cite: 1].",
+                "dis_detay": "52 / L Beden.",
                 "ayakkabi": "Taba Süet Chelsea Bot (No: 44.5)",
-                "aksesuar": "Taba Süet Kemer + Vizon-Haki Ekose Yün Atkı[cite: 1]",
-                "ev_giyimi": "Taş Rengi Modal Ev Tişörtü + Açık Mocha Şal Yaka Hırka + Fitilli Çorap[cite: 1]",
-                "stil_sirri": "Mikro fitilli kadife ve fermuarlı triko katmanı okulda maksimum konfor sağlar[cite: 1]."
+                "aksesuar": "Taba Süet Kemer + Vizon-Haki Ekose Yün Atkı",
+                "ev_giyimi": "Taş Rengi Modal Ev Tişörtü + Açık Mocha Şal Yaka Hırka + Fitilli Çorap",
+                "stil_sirri": "Mikro fitilli kadife ve fermuarlı triko katmanı okulda maksimum konfor sağlar."
             },
             {
                 "baslik": "Maskülen Denim & Chino Dengesi",
                 "ust": "Yumuşak Açık İndigo Chambray (Kot) Gömlek",
-                "ust_detay": "L Beden, kollar dirseğe kadar katlı[cite: 1].",
+                "ust_detay": "L Beden, kollar dirseğe kadar katlı.",
                 "alt": "Taş Rengi Tok Gabardin Chino Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Mat Haki Harrington Ceket",
-                "dis_detay": "Ders giriş-çıkışları için rüzgar kesici dış katman[cite: 1].",
+                "dis_detay": "Ders giriş-çıkışları için rüzgar kesici dış katman.",
                 "ayakkabi": "Ekru Deri Sneaker (Süet detaylı - No: 44)",
-                "aksesuar": "Taba Süet Kemer + Mat Bronz Pilot Güneş Gözlüğü[cite: 1]",
-                "ev_giyimi": "Mat Zeytin Waffle Tişört + Taş Rengi Pamuklu Eşofman Altı[cite: 1]",
-                "stil_sirri": "Chambray gömlek kumaşı pamuk chino üzerinde çok temiz bir kontrast kurar[cite: 1]."
-            },
-            {
-                "baslik": "Adaçayı Yeşili & Bej Ferahlığı",
-                "ust": "Adaçayı Yeşili Keten-Pamuk Karışımlı Gömlek",
-                "ust_detay": "L Beden, üstten 2 düğme açık[cite: 1].",
-                "alt": "Kum Beji Gabardin Chino Pantolon",
-                "alt_detay": "34/32 Beden, terzi işi düz iniş[cite: 1].",
-                "dis": "Taba Hakiki Süet Overshirt (Gömlek Ceket)",
-                "dis_detay": "L Beden, önü açık ceket formunda[cite: 1].",
-                "ayakkabi": "Taba Süet Penny Loafer (No: 44.5)",
-                "aksesuar": "Taba Süet Kemer + Deri Kordonlu Klasik Saat[cite: 1]",
-                "ev_giyimi": "Ekru Modal Rahat Tişört + Keten-Pamuk Ev Şortu[cite: 1]",
-                "stil_sirri": "Adaçayı yeşili ile taba süetin uyumu sonbaharda derste çok dingin ve güven veren bir otorite kurar[cite: 1]."
+                "aksesuar": "Taba Süet Kemer + Mat Bronz Pilot Güneş Gözlüğü",
+                "ev_giyimi": "Mat Zeytin Waffle Tişört + Taş Rengi Pamuklu Eşofman Altı",
+                "stil_sirri": "Chambray gömlek kumaşı pamuk chino üzerinde çok temiz bir kontrast kurar."
             }
         ],
         "Hafta Sonu / Dışarı (Relaxed & Karizmatik)": [
             {
                 "baslik": "Zahmetsiz Süet Katman & Jean",
                 "ust": "Ekru / Kırık Beyaz Ağır Gramajlı Basic Tişört",
-                "ust_detay": "L Beden, tok yakalı %100 pamuk[cite: 1].",
+                "ust_detay": "L Beden, tok yakalı %100 pamuk.",
                 "alt": "Düz Kesim Koyu İndigo Ham Jean (Yırtıksız)",
-                "alt_detay": "34/32 Beden straight fit[cite: 1].",
+                "alt_detay": "34/32 Beden straight fit.",
                 "dis": "Taba / Konyak Hakiki Süet Overshirt (Gömlek Ceket)",
-                "dis_detay": "L / XL Beden, önü açık[cite: 1].",
+                "dis_detay": "L / XL Beden, önü açık.",
                 "ayakkabi": "Ekru Minimalist Deri Sneaker (No: 44)",
-                "aksesuar": "Taba Süet Kemer + Taba Pamuklu Beyzbol Şapkası[cite: 1]",
-                "ev_giyimi": "Vizon Modal Tişört + Melanj Eşofman Altı + Süet Terlik[cite: 1]",
-                "stil_sirri": "Taba süetin zengin dokusu ekru tişört ve koyu jean fonunda öne çıkar[cite: 1]."
-            },
-            {
-                "baslik": "Doğal Keten & Haki Dinamikliği",
-                "ust": "Adaçayı Yeşili Keten Gömlek (İçine ekru tişört)",
-                "ust_detay": "L Beden, önü açık ceket gibi[cite: 1].",
-                "alt": "Taş Rengi Gabardin Chino Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
-                "dis": "Mat Zeytin Yeşili Şişme Yelek",
-                "dis_detay": "L Beden yürüyüş yeleği[cite: 1].",
-                "ayakkabi": "Asics Gel-Kayano 31 (Vizon/Gri) veya Sneaker",
-                "aksesuar": "Kahve Deri Saat + Amber Güneş Gözlüğü[cite: 1]",
-                "ev_giyimi": "Ekru Waffle Henley + Kum Beji Şort[cite: 1]",
-                "stil_sirri": "Adaçayı yeşili ile bej tonları hafta sonu kafede taze ve dinamik durur[cite: 1]."
+                "aksesuar": "Taba Süet Kemer + Taba Pamuklu Beyzbol Şapkası",
+                "ev_giyimi": "Vizon Modal Tişört + Melanj Eşofman Altı + Süet Terlik",
+                "stil_sirri": "Taba süetin zengin dokusu ekru tişört ve koyu jean fonunda öne çıkar."
             }
         ],
         "Akşam Yemeği / Özel Davet (Zarif & Maskülen)": [
             {
                 "baslik": "Süetin Tek Başına Maskülen Gücü",
                 "ust": "Taba / Konyak Süet Overshirt (Gömlek Formunda)",
-                "ust_detay": "L Beden, üstten 2 düğme açık, manşetler tek tur kıvrık[cite: 1].",
+                "ust_detay": "L Beden, üstten 2 düğme açık, manşetler tek tur kıvrık.",
                 "alt": "Taş Rengi / Kum Beji Tok Gabardin Chino Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Tek katman odaklı süet şıklığı",
-                "dis_detay": "V-fiziği öne çıkaran net duruş[cite: 1].",
+                "dis_detay": "V-fiziği öne çıkaran net duruş.",
                 "ayakkabi": "Taba Süet Penny Loafer veya Chelsea Bot (No: 44.5)",
-                "aksesuar": "Taba Süet Kemer + Deri Saat + Parfüm: Dolce & Gabbana The One EDP[cite: 1]",
-                "ev_giyimi": "Çikolata Kahve Şal Yaka Hırka + İpeksi Modal Boxer + Waffle Tişört[cite: 1]",
-                "stil_sirri": "Akşam loş ışıkta süet kumaş doğrudan dikkat çeker[cite: 1]."
+                "aksesuar": "Taba Süet Kemer + Deri Saat + Parfüm: Dolce & Gabbana The One EDP",
+                "ev_giyimi": "Çikolata Kahve Şal Yaka Hırka + İpeksi Modal Boxer + Waffle Tişört",
+                "stil_sirri": "Akşam loş ışıkta süet kumaş doğrudan dikkat çeker."
             }
         ],
         "Pazar Rahat Dolaşma & Dinlenme": [
             {
                 "baslik": "Elevated Casual Pazar Rahatlığı",
                 "ust": "Ekru Yarım Fermuarlı (Half-Zip) Pamuklu Sweatshirt",
-                "ust_detay": "L Beden, dik fermuarlı yaka boyun ve omuz hattını kalıplı gösterir[cite: 1].",
+                "ust_detay": "L Beden, dik fermuarlı yaka boyun ve omuz hattını kalıplı gösterir.",
                 "alt": "Melanj Taş Rengi Düz Paça Tok Eşofman Altı",
-                "alt_detay": "Tapered Kesim, bacak kaslarını sıkmadan düz iner[cite: 1].",
+                "alt_detay": "Tapered Kesim, bacak kaslarını sıkmadan düz iner.",
                 "dis": "Mat Zeytin Yeşili Şişme Yelek (Puffer Gilet)",
-                "dis_detay": "Yürüyüş ve pazar kahvesi için rahat katman[cite: 1].",
+                "dis_detay": "Yürüyüş ve pazar kahvesi için rahat katman.",
                 "ayakkabi": "Asics Gel-Kayano 31 (Diz Destekli Ortopedik Yürüyüş Ayakkabısı)",
-                "aksesuar": "Taş Rengi Logosuz Pamuklu Beyzbol Şapkası[cite: 1]",
-                "ev_giyimi": "Tüm gün: Waffle Henley Tişört + Modal Eşofman Altı + Mantar Tabanlı Süet Terlik[cite: 1]",
-                "stil_sirri": "Eşofman altının paçasının lastiksiz düz inmesi salaşlığı engelleyip derli toplu gösterir[cite: 1]."
+                "aksesuar": "Taş Rengi Logosuz Pamuklu Beyzbol Şapkası",
+                "ev_giyimi": "Tüm gün: Waffle Henley Tişört + Modal Eşofman Altı + Mantar Tabanlı Süet Terlik",
+                "stil_sirri": "Eşofman altının paçasının lastiksiz düz inmesi salaşlığı engelleyip derli toplu gösterir."
             }
         ]
     },
@@ -203,86 +178,60 @@ DETAYLI_KOMBIN_HAVUZU = {
             {
                 "baslik": "Old Money Akademik Kış Zırhı",
                 "ust": "Kırık Beyaz Oxford Gömlek üzerine Karamel Saç Örgü Kazak",
-                "ust_detay": "Gömlek yakası kazağın içinden muntazam çıkarılmış[cite: 1].",
+                "ust_detay": "Gömlek yakası kazağın içinden muntazam çıkarılmış.",
                 "alt": "Çikolata Kahve Mikro Kadife Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Deve Tüyü (Camel) Chesterfield Yün Kaban",
-                "dis_detay": "52 / L Beden[cite: 1].",
+                "dis_detay": "52 / L Beden.",
                 "ayakkabi": "Acı Kahve Commando Tabanlı Hakiki Deri Bot (No: 44.5)",
-                "aksesuar": "Taba Deri Eldiven + Ekose Yün Atkı[cite: 1]",
-                "ev_giyimi": "Şal Yaka Hırka + Waffle Uzun Kollu Tişört + Kalın Yün Çorap[cite: 1]",
-                "stil_sirri": "Saç örgü dokusu ve camel kaban kış aylarının en prestijli ikilisidir[cite: 1]."
-            },
-            {
-                "baslik": "Şal Yaka Hırka & Oxford Asaleti",
-                "ust": "Kırık Beyaz Oxford Gömlek üzerine Koyu Haki Şal Yaka Hırka",
-                "ust_detay": "L Beden, ahşap düğmeli kalın hırka[cite: 1].",
-                "alt": "Koyu Vizon Yün-Flanel Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
-                "dis": "Mat Zeytin Yeşili Dolgulu Parka",
-                "dis_detay": "L Beden[cite: 1].",
-                "ayakkabi": "Taba Süet Chelsea Bot (No: 44.5)",
-                "aksesuar": "Deri Kordonlu Saat + Kaşmir Atkı[cite: 1]",
-                "ev_giyimi": "Vizon Waffle Tişört + Koyu Vizon Eşofman Altı[cite: 1]",
-                "stil_sirri": "Şal yaka triko sınıfta hem otoriter hem çok sıcak bir hava verir[cite: 1]."
-            },
-            {
-                "baslik": "Monokrom Kış Triko Katmanı",
-                "ust": "Ekru Balıkçı Yaka Yün Kazak",
-                "ust_detay": "L Beden tok yün[cite: 1].",
-                "alt": "Füme / Küllü Gri Flanel Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
-                "dis": "Astarsız Yumuşak Lacivert Blazer Ceket",
-                "dis_detay": "52 / L Beden[cite: 1].",
-                "ayakkabi": "Acı Kahve Deri Bot (No: 44.5)",
-                "aksesuar": "Taba Süet Kemer + Deri Eldiven[cite: 1]",
-                "ev_giyimi": "Ekru Modal Tişört + Taş Rengi Eşofman Altı[cite: 1]",
-                "stil_sirri": "Ekru balıkçı kazak blazer içine giyildiğinde tam bir Oxford akademisyeni duruşu yaratır[cite: 1]."
+                "aksesuar": "Taba Deri Eldiven + Ekose Yün Atkı",
+                "ev_giyimi": "Şal Yaka Hırka + Waffle Uzun Kollu Tişört + Kalın Yün Çorap",
+                "stil_sirri": "Saç örgü dokusu ve camel kaban kış aylarının en prestijli ikilisidir."
             }
         ],
         "Hafta Sonu / Dışarı (Relaxed & Karizmatik)": [
             {
                 "baslik": "Soğuk Hava & Karlı Gün Parka Stili",
                 "ust": "Ekru Balıkçı Yaka Yün Kazak",
-                "ust_detay": "L Beden tok yün[cite: 1].",
+                "ust_detay": "L Beden tok yün.",
                 "alt": "Koyu İndigo Ham Jean",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Mat Zeytin Yeşili Kapüşonlu Dolgulu Parka",
-                "dis_detay": "L Beden[cite: 1].",
+                "dis_detay": "L Beden.",
                 "ayakkabi": "Acı Kahve Commando Taban Deri Bot (No: 44.5)",
-                "aksesuar": "Ekru Yün Bere + Taba Deri Eldiven[cite: 1]",
-                "ev_giyimi": "Açık Mocha Ev Hırkası + Modal Eşofman Altı[cite: 1]",
-                "stil_sirri": "Ekru kazak yüzü aydınlatırken parka maskülen duruş verir[cite: 1]."
+                "aksesuar": "Ekru Yün Bere + Taba Deri Eldiven",
+                "ev_giyimi": "Açık Mocha Ev Hırkası + Modal Eşofman Altı",
+                "stil_sirri": "Ekru kazak yüzü aydınlatırken parka maskülen duruş verir."
             }
         ],
         "Akşam Yemeği / Özel Davet (Zarif & Maskülen)": [
             {
                 "baslik": "Monokrom Kış Lüksü",
                 "ust": "Ekru Tam Balıkçı Yaka İnce Yün Kazak",
-                "ust_detay": "L Beden vücuda oturan kalıp[cite: 1].",
+                "ust_detay": "L Beden vücuda oturan kalıp.",
                 "alt": "Koyu Vizon Tek Pileli Flanel Yün Pantolon",
-                "alt_detay": "34/32 Beden akıcı kumaş[cite: 1].",
+                "alt_detay": "34/32 Beden akıcı kumaş.",
                 "dis": "Deve Tüyü (Camel) Chesterfield Yün Kaban",
-                "dis_detay": "52 / L Beden[cite: 1].",
+                "dis_detay": "52 / L Beden.",
                 "ayakkabi": "Acı Kahve Hakiki Deri Bot (No: 44.5)",
-                "aksesuar": "Taba Deri Eldiven + Parfüm: Dior Homme Intense[cite: 1]",
-                "ev_giyimi": "Vizon Waffle Tişört + Melanj Eşofman Altı[cite: 1]",
-                "stil_sirri": "Ekru balıkçı kazak ve deve tüyü kaban kışın en asil duruşudur[cite: 1]."
+                "aksesuar": "Taba Deri Eldiven + Parfüm: Dior Homme Intense",
+                "ev_giyimi": "Vizon Waffle Tişört + Melanj Eşofman Altı",
+                "stil_sirri": "Ekru balıkçı kazak ve deve tüyü kaban kışın en asil duruşudur."
             }
         ],
         "Pazar Rahat Dolaşma & Dinlenme": [
             {
                 "baslik": "Kışlık Sıcak Loungewear",
                 "ust": "Taş Rengi Waffle Henley Tişört üzerine Açık Mocha Şal Yaka Hırka",
-                "ust_detay": "L Beden yumuşak ev ve yürüyüş katmanı[cite: 1].",
+                "ust_detay": "L Beden yumuşak ev ve yürüyüş katmanı.",
                 "alt": "Koyu Vizon Tapered Eşofman Altı",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Mat Koyu Zeytin Parka",
-                "dis_detay": "L Beden[cite: 1].",
+                "dis_detay": "L Beden.",
                 "ayakkabi": "Commando Tabanlı Deri Bot veya Ortopedik Sneaker",
-                "aksesuar": "Ekru Yün Bere[cite: 1]",
-                "ev_giyimi": "Tüm gün: Waffle Henley + Şal Yaka Hırka + Yün Çorap + Süet Terlik[cite: 1]",
-                "stil_sirri": "Şal yaka hırka pazar günleri maksimum sıcaklık ve şıklık sunar[cite: 1]."
+                "aksesuar": "Ekru Yün Bere",
+                "ev_giyimi": "Tüm gün: Waffle Henley + Şal Yaka Hırka + Yün Çorap + Süet Terlik",
+                "stil_sirri": "Şal yaka hırka pazar günleri maksimum sıcaklık ve şıklık sunar."
             }
         ]
     },
@@ -291,73 +240,60 @@ DETAYLI_KOMBIN_HAVUZU = {
             {
                 "baslik": "Ferah Bahar & Omuzda Triko",
                 "ust": "Kırık Beyaz Oxford Gömlek (Üzerine Taş Rengi İnce Triko asılı)",
-                "ust_detay": "Kollar dirseğe kıvrık, triko omuzda gevşek bağlı[cite: 1].",
+                "ust_detay": "Kollar dirseğe kıvrık, triko omuzda gevşek bağlı.",
                 "alt": "Mat Zeytin Yeşili Chino Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Kum Beji Dört Cepli Safari Ceket",
-                "dis_detay": "L Beden[cite: 1].",
+                "dis_detay": "L Beden.",
                 "ayakkabi": "Taba Süet Penny Loafer (No: 44.5)",
-                "aksesuar": "Taba Örgü Deri Kemer + Kahve Deri Saat[cite: 1]",
-                "ev_giyimi": "Kum Beji Modal Tişört + Keten-Pamuk Ev Pantolonu[cite: 1]",
-                "stil_sirri": "Trikoyu omuza atmak çabasız bir İtalyan entelektüel havası katar[cite: 1]."
-            },
-            {
-                "baslik": "Tozlu Petrol & Bej Tazeliği",
-                "ust": "Tozlu Petrol Mavisi Açık Yaka (Johnny Collar) Polo Tişört",
-                "ust_detay": "L Beden, düğmesiz ferah yaka[cite: 1].",
-                "alt": "Taş Rengi Gabardin Chino Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
-                "dis": "Yumuşak Lacivert Astarsız Blazer Ceket",
-                "dis_detay": "52 / L Beden[cite: 1].",
-                "ayakkabi": "Ekru Minimalist Deri Sneaker (No: 44)",
-                "aksesuar": "Kahve Kordonlu Saat + Amber Güneş Gözlüğü[cite: 1]",
-                "ev_giyimi": "Ekru Modal Tişört + Adaçayı Ev Şortu[cite: 1]",
-                "stil_sirri": "Tozlu petrol mavisi Soft Autumn paletinin en taze rengidir[cite: 1]."
+                "aksesuar": "Taba Örgü Deri Kemer + Kahve Deri Saat",
+                "ev_giyimi": "Kum Beji Modal Tişört + Keten-Pamuk Ev Pantolonu",
+                "stil_sirri": "Trikoyu omuza atmak çabasız bir İtalyan entelektüel havası katar."
             }
         ],
         "Hafta Sonu / Dışarı (Relaxed & Karizmatik)": [
             {
                 "baslik": "Bahar Safari & Toprak Tonları",
                 "ust": "Yanık Kiremit Kısa Kollu Triko Polo",
-                "ust_detay": "L Beden ince örgü[cite: 1].",
+                "ust_detay": "L Beden ince örgü.",
                 "alt": "Kırık Beyaz Tek Pileli Keten Pantolon",
-                "alt_detay": "34/32 Beden pileli form[cite: 1].",
+                "alt_detay": "34/32 Beden pileli form.",
                 "dis": "Kum Beji Safari Ceket",
-                "dis_detay": "L Beden[cite: 1].",
+                "dis_detay": "L Beden.",
                 "ayakkabi": "Taba Süet Penny Loafer (No: 44.5)",
-                "aksesuar": "Pilot Güneş Gözlüğü + Örgü Kemer[cite: 1]",
-                "ev_giyimi": "Taş Rengi Modal Tişört + Kum Beji Şort[cite: 1]",
-                "stil_sirri": "Yanık kiremit ile kırık beyaz bahar güneşinde teni canlandırır[cite: 1]."
+                "aksesuar": "Pilot Güneş Gözlüğü + Örgü Kemer",
+                "ev_giyimi": "Taş Rengi Modal Tişört + Kum Beji Şort",
+                "stil_sirri": "Yanık kiremit ile kırık beyaz bahar güneşinde teni canlandırır."
             }
         ],
         "Akşam Yemeği / Özel Davet (Zarif & Maskülen)": [
             {
                 "baslik": "Adaçayı & Lacivert Blazer",
                 "ust": "Adaçayı Yeşili Keten-Pamuk Gömlek",
-                "ust_detay": "L Beden, üstten 2 düğme açık[cite: 1].",
+                "ust_detay": "L Beden, üstten 2 düğme açık.",
                 "alt": "Kum Beji Chino Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Yumuşak Lacivert Astarsız Blazer Ceket",
-                "dis_detay": "52 / L Beden[cite: 1].",
+                "dis_detay": "52 / L Beden.",
                 "ayakkabi": "Taba Süet Loafer (No: 44.5)",
-                "aksesuar": "Taba Süet Kemer + Parfüm: Tom Ford Grey Vetiver[cite: 1]",
-                "ev_giyimi": "Vizon Modal Tişört + Keten-Pamuk Rahat Pantolon[cite: 1]",
-                "stil_sirri": "Yeşil, bej ve lacivert akşam yemeklerinde dengeli ve resmidir[cite: 1]."
+                "aksesuar": "Taba Süet Kemer + Parfüm: Tom Ford Grey Vetiver",
+                "ev_giyimi": "Vizon Modal Tişört + Keten-Pamuk Rahat Pantolon",
+                "stil_sirri": "Yeşil, bej ve lacivert akşam yemeklerinde dengeli ve resmidir."
             }
         ],
         "Pazar Rahat Dolaşma & Dinlenme": [
             {
                 "baslik": "İlkbahar Park & Yürüyüş Kombini",
                 "ust": "Adaçayı Yeşili Premium Bisiklet Yaka Sweatshirt",
-                "ust_detay": "L Beden, içine giyilen ekru tişört yakadan hafifçe görünür[cite: 1].",
+                "ust_detay": "L Beden, içine giyilen ekru tişört yakadan hafifçe görünür.",
                 "alt": "Beli İpli Kum Beji Rahat Chino Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Mat Haki Harrington Ceket (Gerektiğinde)",
-                "dis_detay": "L Beden[cite: 1].",
+                "dis_detay": "L Beden.",
                 "ayakkabi": "Asics Gel-Kayano 31 (Vizon / Gri)",
-                "aksesuar": "Taba Beyzbol Şapkası + Güneş Gözlüğü[cite: 1]",
-                "ev_giyimi": "Tüm gün: Modal Tişört + Keten Şort + Süet Terlik[cite: 1]",
-                "stil_sirri": "Beli ipli chino pantolon dışarıda eşofmandan çok daha şık durur[cite: 1]."
+                "aksesuar": "Taba Beyzbol Şapkası + Güneş Gözlüğü",
+                "ev_giyimi": "Tüm gün: Modal Tişört + Keten Şort + Süet Terlik",
+                "stil_sirri": "Beli ipli chino pantolon dışarıda eşofmandan çok daha şık durur."
             }
         ]
     },
@@ -366,73 +302,60 @@ DETAYLI_KOMBIN_HAVUZU = {
             {
                 "baslik": "Akdeniz Riviera Keten Şıklığı",
                 "ust": "Ekru %100 Keten Gömlek (Kollar kıvrık)",
-                "ust_detay": "Relaxed Fit (L Beden), terletmeyen lif[cite: 1].",
+                "ust_detay": "Relaxed Fit (L Beden), terletmeyen lif.",
                 "alt": "Kum Beji Dökümlü Keten Pantolon",
-                "alt_detay": "34/32 Beden bacakları sıkmaz[cite: 1].",
+                "alt_detay": "34/32 Beden bacakları sıkmaz.",
                 "dis": "Taş Rengi İnce Triko (Omuza asılı)",
-                "dis_detay": "Klimalı odalar için katman[cite: 1].",
+                "dis_detay": "Klimalı odalar için katman.",
                 "ayakkabi": "Taba Hakiki Deri Örgü Loafer (No: 44.5)",
-                "aksesuar": "Örgü Deri Kemer + Kahve Deri Saat[cite: 1]",
-                "ev_giyimi": "Terracotta Modal Tişört + Müslin Keten Şort[cite: 1]",
-                "stil_sirri": "Baştan aşağı ekru-bej keten takımı yazın terletmeden lüks durur[cite: 1]."
-            },
-            {
-                "baslik": "Lacivert Pique Polo Ciddiyeti",
-                "ust": "Yumuşak Lacivert Premium Pique Pamuk Polo",
-                "ust_detay": "L Beden, terletmeyen pike örgü[cite: 1].",
-                "alt": "Taş Rengi Keten-Pamuk Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
-                "dis": "Yaz aylarında tek katman önerilir[cite: 1]",
-                "dis_detay": "V-fiziği net gösterir[cite: 1].",
-                "ayakkabi": "Taba Süet Penny Loafer veya Ekru Sneaker[cite: 1]",
-                "aksesuar": "Taba Kemer + Amber Güneş Gözlüğü[cite: 1]",
-                "ev_giyimi": "Kum Beji Modal Tişört + Adaçayı Şort[cite: 1]",
-                "stil_sirri": "Lacivert ve taş rengi okulda resmiyeti korurken sıcağı hissettirmez[cite: 1]."
+                "aksesuar": "Örgü Deri Kemer + Kahve Deri Saat",
+                "ev_giyimi": "Terracotta Modal Tişört + Müslin Keten Şort",
+                "stil_sirri": "Baştan aşağı ekru-bej keten takımı yazın terletmeden lüks durur."
             }
         ],
         "Hafta Sonu / Dışarı (Relaxed & Karizmatik)": [
             {
                 "baslik": "Resort Rahatlığı & Keten Şort",
                 "ust": "Adaçayı Yeşili Keten Gömlek (Önü açık) + Ekru Tişört",
-                "ust_detay": "İçte hafif supima pamuk tişört[cite: 1].",
+                "ust_detay": "İçte hafif supima pamuk tişört.",
                 "alt": "Taş Rengi Terzi Kesim (Tailored) Bermuda Şort",
-                "alt_detay": "Beden: 34, dizin 2 parmak üzerinde[cite: 1].",
+                "alt_detay": "Beden: 34, dizin 2 parmak üzerinde.",
                 "dis": "Açık keten gömlek",
-                "dis_detay": "Güneş kalkanı[cite: 1].",
+                "dis_detay": "Güneş kalkanı.",
                 "ayakkabi": "Taba Süet Terlik (Mantar Taban)",
-                "aksesuar": "Pilot Güneş Gözlüğü + Örgü Bileklik[cite: 1]",
-                "ev_giyimi": "Taş Rengi Tişört + Beli Lastikli Keten Şort[cite: 1]",
-                "stil_sirri": "Terzi kesim şort diz üstü bittiğinde sporcu bacaklarını estetik gösterir[cite: 1]."
+                "aksesuar": "Pilot Güneş Gözlüğü + Örgü Bileklik",
+                "ev_giyimi": "Taş Rengi Tişört + Beli Lastikli Keten Şort",
+                "stil_sirri": "Terzi kesim şort diz üstü bittiğinde sporcu bacaklarını estetik gösterir."
             }
         ],
         "Akşam Yemeği / Özel Davet (Zarif & Maskülen)": [
             {
                 "baslik": "Yaz Akşamı Terakota & Kırık Beyaz",
                 "ust": "Yanık Kiremit Triko / Modal Polo",
-                "ust_detay": "L Beden dökümlü doku[cite: 1].",
+                "ust_detay": "L Beden dökümlü doku.",
                 "alt": "Kırık Beyaz Tek Pileli Keten Pantolon",
-                "alt_detay": "34/32 Beden[cite: 1].",
+                "alt_detay": "34/32 Beden.",
                 "dis": "Omuza atılmış Kum Beji İnce Triko",
-                "dis_detay": "Akşam esintisi için aksesuar katman[cite: 1].",
+                "dis_detay": "Akşam esintisi için aksesuar katman.",
                 "ayakkabi": "Taba Hakiki Deri Örgü Loafer (No: 44.5)",
-                "aksesuar": "Örgü Deri Kemer + Parfüm: Terre d'Hermès Eau Givrée[cite: 1]",
-                "ev_giyimi": "Ekru Modal Tişört + Keten Ev Pantolonu[cite: 1]",
-                "stil_sirri": "Kiremit tonu yaz akşamında bronz teni ve sakal rengini parlatır[cite: 1]."
+                "aksesuar": "Örgü Deri Kemer + Parfüm: Terre d'Hermès Eau Givrée",
+                "ev_giyimi": "Ekru Modal Tişört + Keten Ev Pantolonu",
+                "stil_sirri": "Kiremit tonu yaz akşamında bronz teni ve sakal rengini parlatır."
             }
         ],
         "Pazar Rahat Dolaşma & Dinlenme": [
             {
                 "baslik": "Yaz Pazar Sahil & Dinlenme",
                 "ust": "Taş Rengi Supima İnce Pamuk Basic Tişört",
-                "ust_detay": "L Beden, ipeksi hafif doku[cite: 1].",
+                "ust_detay": "L Beden, ipeksi hafif doku.",
                 "alt": "Beli Bağcıklı Adaçayı Yeşili Keten Şort",
-                "alt_detay": "Beden: 34, lastikli bel[cite: 1].",
-                "dis": "Ekstra dış katman gerekmez[cite: 1]",
-                "dis_detay": "Maksimum ferahlık[cite: 1].",
-                "ayakkabi": "Vizon Süet Espadril veya Mantar Taban Terlik[cite: 1]",
-                "aksesuar": "Kemik Çerçeve Güneş Gözlüğü[cite: 1]",
-                "ev_giyimi": "Tüm gün: Müslin Ev Şortu + Modal Tişört + Süet Terlik[cite: 1]",
-                "stil_sirri": "Doğal keten şort pazar günleri terletmeyen dinlenme konforu sunar[cite: 1]."
+                "alt_detay": "Beden: 34, lastikli bel.",
+                "dis": "Ekstra dış katman gerekmez",
+                "dis_detay": "Maksimum ferahlık.",
+                "ayakkabi": "Vizon Süet Espadril veya Mantar Taban Terlik",
+                "aksesuar": "Kemik Çerçeve Güneş Gözlüğü",
+                "ev_giyimi": "Tüm gün: Müslin Ev Şortu + Modal Tişört + Süet Terlik",
+                "stil_sirri": "Doğal keten şort pazar günleri terletmeyen dinlenme konforu sunar."
             }
         ]
     }
@@ -461,9 +384,10 @@ with st.sidebar:
     """)
 
 # --- ANA EKRAN SEKMELERİ ---
-st.title("👔 Kişisel Stil, Alışveriş, Kombin & Bakım Asistanı")
+st.title("👔 Kişisel Stil, AI Danışman & Bakım Asistanı")
 
 (
+    tab_ai,
     tab_kombin,
     tab_haftalik,
     tab_sb,
@@ -478,6 +402,7 @@ st.title("👔 Kişisel Stil, Alışveriş, Kombin & Bakım Asistanı")
     tab_parfum,
     tab_rutin
 ) = st.tabs([
+    "🤖 Canlı AI Stilist & İçerik Denetimi",
     "🎲 Akıllı Kombin Motoru",
     "📅 7 Günlük Yaşam Planı",
     "🍂 Sonbahar",
@@ -493,7 +418,91 @@ st.title("👔 Kişisel Stil, Alışveriş, Kombin & Bakım Asistanı")
     "🗓️ Detaylı Bakım Takvimi"
 ])
 
-# 1. AKILLI KOMBİN MOTORU
+# --- 1. CANLI AI STİLİST & İÇERİK DENETİMİ SEKMEŞİ ---
+with tab_ai:
+    st.header("🤖 Canlı AI Stilist & Akıllı Ürün Denetçisi")
+    st.caption("Doğal dilde stil danışmanlığı alabilir veya satın almayı düşündüğünüz kıyafetin kumaş karışımını / bakım ürününün içerik listesini (INCI) denetletebilirsiniz.")
+    
+    api_key = st.secrets.get("GEMINI_API_KEY")
+    
+    if not api_key:
+        st.warning("⚠️ Canlı AI Asistanını kullanabilmek için lütfen Streamlit Cloud Secrets paneline `GEMINI_API_KEY` anahtarınızı ekleyin.")
+    else:
+        client = genai.Client(api_key=api_key)
+        
+        # Sistem Talimatı (Context Injection)
+        sistem_promptu = f"""
+        Sen kullanıcının kişisel stilisti, imaj mimarı ve kozmetik/kumaş içerik denetçisisin.
+        KULLANICI VERİLERİ:
+        - Yaş & Meslek: 38 yaşında erkek İngilizce Öğretmeni (Okulda akademik, saygın, otoriter ama ulaşılabilir Smart-Casual/Old Money tarzı).
+        - Fizik: 180 cm boy, 86 kg, Atletik V-Vücut (Geniş omuz: 54 cm, Göğüs: 105 cm, Bel: 92 cm, Biceps: 40-45 cm, Uyluk: 61 cm bacak kası, Ayak: 28.5 cm taraklı).
+        - Renk Paleti: Soft Autumn (Adaçayı yeşili, zeytin/haki, sıcak karamel/taba, kum beji, taş rengi, kırık beyaz/ekru, vizon, çikolata kahve, mat lacivert).
+        - Kaçınılacaklar: Zifiri siyah, çiğ parlak kar beyazı, parlak neonlar, aşırı dar slim-fit (tayt gibi saran) pantolonlar.
+        - Cilt & Saç Yapısı: Yağlanmaya/pürüzlere meyilli cilt, hassas göz çevresi (kaz ayakları), seyrek tepe saç (hacim pudrası + fiber kullanıyor), terleme kontrolü (Driclor/Deotak).
+        
+        GÖREVLERİN:
+        1. Doğal Dilde Stil & Kombin Sohbeti: Kullanıcı hava durumu, okul etkinliği, kurul toplantısı veya özel bir gün sorduğunda, kullanıcının gardırop parçalarını ve renk paletini baz alarak net kombin ve kalıp tavsiyeleri ver.
+        2. Kumaş ve İçerik Değerlendirmesi: Kullanıcı bir kıyafetin kumaş etiketini (Örn: '%70 Polyester %30 Pamuk' veya '%100 Keten') sorduğunda terletme, döküm, kırışma ve sporcu fiziğine uygunluk açısından eleştir.
+        3. Kozmetik / Bakım Ürünü Denetimi: Kullanıcı bir serum/krem içerik listesi (INCI) yapıştırdığında komedojenik mi, salisilik asit veya retinol ile çakışır mı, gözenek tıkar mı net olarak açıkla.
+        Üslubun: Son derece profesyonel, net, samimi, gereksiz laf kalabalığı yapmayan ve doğrudan sonuca odaklanan bir stilist ol.
+        """
+        
+        # Sohbet Geçmişi
+        if "chat_messages" not in st.session_state:
+            st.session_state.chat_messages = [
+                {"role": "assistant", "content": "Merhaba! Ben kişisel stilistiniz ve ürün içerik denetçinizim. Bugün okul kombinlerinizi planlayabilir, bir kıyafetin kumaş kalitesini değerlendirebilir veya bir cilt bakım ürününün içeriğini analiz edebilirim. Size nasıl yardımcı olabilirim?"}
+            ]
+        
+        # Hızlı Soru / Analiz Butonları
+        st.markdown("##### ⚡ Hızlı Danışma Başlıkları")
+        c_hizli1, c_hizli2, c_hizli3 = st.columns(3)
+        hizli_mesaj = None
+        with c_hizli1:
+            if st.button("🧥 Kumaş Karışımı Nasıl Olmalı?", use_container_width=True):
+                hizli_mesaj = "Bir gömlek veya ceket alırken etiketindeki kumaş karışımı (keten, pamuk, yün, polyester oranları) nasıl olmalı? Hangilerinden uzak durmalıyım?"
+        with c_hizli2:
+            if st.button("🌦️ Yağmurlu Sonbahar Okul Kombini", use_container_width=True):
+                hizli_mesaj = "Yarın hava serin ve yağışlı, 6 saat dersim var. Hangi katmanları ve botumu giymeliyim?"
+        with c_hizli3:
+            if st.button("🧴 Cildim İçin İçerik Kuralı", use_container_width=True):
+                hizli_mesaj = "Kişisel bakım rutinime yeni bir ürün eklerken gözenek tıkamaması ve parlamayı önlemesi için hangi içeriklerden kaçınmalıyım?"
+                
+        # Sohbet Akışını Ekrana Çiz
+        chat_container = st.container(height=400)
+        with chat_container:
+            for m in st.session_state.chat_messages:
+                with st.chat_message(m["role"]):
+                    st.markdown(m["content"])
+        
+        # Kullanıcı Girdisi (Hızlı buton veya Klavye)
+        kullanici_inputu = st.chat_input("Stilistinize bir soru sorun veya analiz için ürün içeriği/kumaş bilgisi yapıştırın...")
+        gonderilecek_mesaj = hizli_mesaj or kullanici_inputu
+        
+        if gonderilecek_mesaj:
+            st.session_state.chat_messages.append({"role": "user", "content": gonderilecek_mesaj})
+            with chat_container:
+                with st.chat_message("user"):
+                    st.markdown(gonderilecek_mesaj)
+            
+            with chat_container:
+                with st.chat_message("assistant"):
+                    with st.spinner("Stilistiniz değerlendiriyor..."):
+                        try:
+                            # Gemini Chat API Çağrısı
+                            response = client.models.generate_content(
+                                model="gemini-2.5-flash",
+                                contents=gonderilecek_mesaj,
+                                config=genai.types.GenerateContentConfig(
+                                    system_instruction=sistem_promptu,
+                                    temperature=0.7
+                                )
+                            )
+                            st.markdown(response.text)
+                            st.session_state.chat_messages.append({"role": "assistant", "content": response.text})
+                        except Exception as e:
+                            st.error(f"Yapay zeka yanıt verirken bir hata oluştu: {str(e)}")
+
+# --- 2. AKILLI KOMBİN MOTORU ---
 with tab_kombin:
     st.header("✨ Akıllı Kombin Üretici (Mevsim & Ortam Odaklı)")
     st.caption("Her tıklamada seçilen mevsime ve ortama göre anlık, taze ve tam detaylı bir kombin üretir.")
@@ -536,7 +545,7 @@ with tab_kombin:
                     st.caption("Ana Parçaları Doğrudan Mağazalarda Ara:")
                     link_butonlari(kombin['ust'])
 
-# 2. 7 GÜNLÜK DİNAMİK YAŞAM PLANI (HER TIKLAMADA TAMAMEN YENİ VE RASTGELE)
+# --- 3. 7 GÜNLÜK DİNAMİK YAŞAM PLANI ---
 with tab_haftalik:
     st.header("📅 7 Günlük Eksiksiz Yaşam & Kombin Planı")
     st.caption("Her butona bastığınızda günlerin kıyafetleri havuzdan rastgele ve taze olarak karıştırılır; çamaşır ve ev giyimi rotasyonunu düzenler.")
@@ -549,7 +558,6 @@ with tab_haftalik:
         haftasonu_havuzu = list(mevsim_data.get("Hafta Sonu / Dışarı (Relaxed & Karizmatik)", [])) + list(mevsim_data.get("Akşam Yemeği / Özel Davet (Zarif & Maskülen)", []))
         pazar_havuzu = list(mevsim_data.get("Pazar Rahat Dolaşma & Dinlenme", []))
         
-        # Okul günleri için havuzdan rastgele karıştırma (Random shuffle & sample)
         random.shuffle(okul_havuzu)
         random.shuffle(haftasonu_havuzu)
         random.shuffle(pazar_havuzu)
@@ -579,52 +587,52 @@ with tab_haftalik:
                         st.caption("Parçayı Bul:")
                         st.link_button("🛍️ Google'da Ara", f"https://www.google.com/search?tbm=shop&q={urllib.parse.quote(k['ust'])}", use_container_width=True)
 
-# 3. SONBAHAR ALIŞVERİŞ
+# 4. SONBAHAR ALIŞVERİŞ
 with tab_sb:
     st.subheader("🍂 Sonbahar Kapsül Gardırobu")
     urun_kartlari_ciz(profil["gardrop_arama_listesi"]["sonbahar_kapsulu"], "giyim")
 
-# 4. KIŞ ALIŞVERİŞ
+# 5. KIŞ ALIŞVERİŞ
 with tab_kis:
     st.subheader("❄️ Kış Kapsül Eklentileri")
     urun_kartlari_ciz(profil["gardrop_arama_listesi"]["kis_eklentileri"], "giyim")
 
-# 5. İLKBAHAR ALIŞVERİŞ
+# 6. İLKBAHAR ALIŞVERİŞ
 with tab_bahar:
     st.subheader("🌸 İlkbahar Kapsül Eklentileri")
     urun_kartlari_ciz(profil["gardrop_arama_listesi"]["ilkbahar_kapsulu"], "giyim")
 
-# 6. YAZ ALIŞVERİŞ
+# 7. YAZ ALIŞVERİŞ
 with tab_yaz:
     st.subheader("☀️ Yaz Kapsül Gardırobu")
     urun_kartlari_ciz(profil["gardrop_arama_listesi"]["yaz_kapsulu"], "giyim")
 
-# 7. RAHAT GİYİM & SPOR
+# 8. RAHAT GİYİM & SPOR
 with tab_rahat:
     st.subheader("🏃 Elevated Casual & Spor Giyim")
     urun_kartlari_ciz(profil["gardrop_arama_listesi"]["rahat_giyim_ve_spor"], "giyim")
 
-# 8. EV GİYİMİ (YENİ EKLENDİ)
+# 9. EV GİYİMİ
 with tab_ev:
     st.subheader("🏠 Ev Giyimi (Elevated Loungewear) Alışveriş Listesi")
     urun_kartlari_ciz(profil["gardrop_arama_listesi"]["ev_giyimi"], "giyim")
 
-# 9. İÇ GİYİM & ÇORAP (YENİ EKLENDİ)
+# 10. İÇ GİYİM & ÇORAP
 with tab_icgiyim:
     st.subheader("🩲 İç Giyim, Çorap & Kalkan Alışveriş Listesi")
     urun_kartlari_ciz(profil["gardrop_arama_listesi"]["ic_giyim_ve_corap"], "giyim")
 
-# 10. AKSESUARLAR
+# 11. AKSESUARLAR
 with tab_aksesuar:
     st.subheader("🕶️ Aksesuarlar & Tamamlayıcı Parçalar")
     urun_kartlari_ciz(profil["aksesuar_listesi"], "giyim")
 
-# 11. KİŞİSEL BAKIM & HİJYEN
+# 12. KİŞİSEL BAKIM & HİJYEN
 with tab_bakim:
     st.subheader("🧴 Onaylı Kişisel Bakım & Hijyen Sepeti")
     urun_kartlari_ciz(profil["kisisel_bakim_ve_hijyen_listesi"], "bakim")
 
-# 12. İMZA PARFÜMLER
+# 13. İMZA PARFÜMLER
 with tab_parfum:
     st.subheader("🪵 Mevsimlik İmza Parfümler")
     st.markdown("##### ☀️ İlkbahar & Yaz")
@@ -633,18 +641,18 @@ with tab_parfum:
     st.markdown("##### ❄️ Sonbahar & Kış")
     urun_kartlari_ciz(profil["parfum_onerileri"]["soguk_mevsimler_sonbahar_kis"], "parfum")
 
-# 13. DETAYLI BAKIM TAKVİMİ
+# 14. DETAYLI BAKIM TAKVİMİ
 with tab_rutin:
     st.header("🧴 Eksiksiz Kişisel Bakım & Hijyen Takvimi")
     st.caption("Kullanılacak tüm ürünlerin ticari tam isimleri, dozajları ve haftalık sıralaması.")
     
     st.markdown("""
     ### ☀️ Günlük Sabah Rutini (Her Gün Sabit — 4 Dakika)
-    1. **Yüz Yıkama:** `CeraVe Blemish Control Cleanser (236 ml)` ile 40 saniye dairesel masajla yüzü yıkayıp havluyla tamponlayarak kurulayın[cite: 1].
-    2. **Nemlendirme:** Hafif nemli cilde 1 pompa `CeraVe Nemlendirici Losyon` uygulayın[cite: 1].
-    3. **Güneş Koruma:** Dışarı çıkmadan 15 dk önce iki parmak kuralıyla `La Roche-Posay Anthelios UVMune 400 Oil Control Fluid SPF 50+` kremi tüm açık yüze, boyna ve kulak kepçelerine sürün[cite: 1].
-    4. **Kasık / Vücut:** Duş sonrası kurulanmış kasık bölgesine `Dalin Likit Pudra` (veya `Burt's Bees Baby Dusting Powder`) sürün; ardından uzun paçalı modal boxer giyin[cite: 1].
-    5. **Saç:** Nemi alınmış saça 3 fıs `Nishman Sea Salt Spray` sıkıp fönle kurutun -> Kuru diplere `Nishman P1 Hacim Pudrası` döküp kökleri dikleştirin -> `Saç Fiberi` serpip sabitleyici sprey ile kilitleyin[cite: 1].
+    1. **Yüz Yıkama:** `CeraVe Blemish Control Cleanser (236 ml)` ile 40 saniye dairesel masajla yüzü yıkayıp havluyla tamponlayarak kurulayın.
+    2. **Nemlendirme:** Hafif nemli cilde 1 pompa `CeraVe Nemlendirici Losyon` uygulayın.
+    3. **Güneş Koruma:** Dışarı çıkmadan 15 dk önce iki parmak kuralıyla `La Roche-Posay Anthelios UVMune 400 Oil Control Fluid SPF 50+` kremi tüm açık yüze, boyna ve kulak kepçelerine sürün.
+    4. **Kasık / Vücut:** Duş sonrası kurulanmış kasık bölgesine `Dalin Likit Pudra` (veya `Burt's Bees Baby Dusting Powder`) sürün; ardından uzun paçalı modal boxer giyin.
+    5. **Saç:** Nemi alınmış saça 3 fıs `Nishman Sea Salt Spray` sıkıp fönle kurutun -> Kuru diplere `Nishman P1 Hacim Pudrası` döküp kökleri dikleştirin -> `Saç Fiberi` serpip sabitleyici sprey ile kilitleyin.
     """)
     
     st.divider()
@@ -657,67 +665,67 @@ with tab_rutin:
     with tp1:
         st.subheader("Pazartesi: Derin Arınma & Retinol Gecesi")
         st.markdown("""
-        - **🏋️ Spor Öncesi:** İç bacak temas hattına fındık kadar `Decathlon Aptonia Anti-Chafing Krem` sürün[cite: 1].
-        - **🚿 Duş:** `Sebamed Yağlı Saçlar İçin Şampuan (400 ml)` ile saçı yıkayın[cite: 1]. `Bioderma Sébium Gel Moussant` ve `Doğal Kabak Lifi` ile sırt, omuz ve göğsü lifleyin[cite: 1].
+        - **🏋️ Spor Öncesi:** İç bacak temas hattına fındık kadar `Decathlon Aptonia Anti-Chafing Krem` sürün.
+        - **🚿 Duş:** `Sebamed Yağlı Saçlar İçin Şampuan (400 ml)` ile saçı yıkayın. `Bioderma Sébium Gel Moussant` ve `Doğal Kabak Lifi` ile sırt, omuz ve göğsü lifleyin.
         - **🌙 Akşam Bakımı (Retinol):**
-          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayıp **2-3 dakika tamamen kurumasını bekleyin**[cite: 1].
-          2. 1 bezelye tanesi `The Ordinary Retinol %0.2 in Squalane` serumu alıp tüm yüze sürün[cite: 1]. Parmakta kalan hafif artığı boyna dokundurun[cite: 1].
-          3. 1 pirinç tanesi `Neutrogena Retinol Boost Göz Kremi`ni yalnızca göz çevresi kemik hattına (kaz ayaklarına) tampon hareketlerle yedirin[cite: 1].
-          4. 5 dakika sonra üzerine `CeraVe Nemlendirici Losyon` sürerek kilitleyin[cite: 1].
-          5. Kuru koltuk altına ter kesici `Driclor Roll-on` uygulayın[cite: 1].
+          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayıp **2-3 dakika tamamen kurumasını bekleyin**.
+          2. 1 bezelye tanesi `The Ordinary Retinol %0.2 in Squalane` serumu alıp tüm yüze sürün. Parmakta kalan hafif artığı boyna dokundurun.
+          3. 1 pirinç tanesi `Neutrogena Retinol Boost Göz Kremi`ni yalnızca göz çevresi kemik hattına (kaz ayaklarına) tampon hareketlerle yedirin.
+          4. 5 dakika sonra üzerine `CeraVe Nemlendirici Losyon` sürerek kilitleyin.
+          5. Kuru koltuk altına ter kesici `Driclor Roll-on` uygulayın.
         """)
         
     with tp2:
         st.subheader("Salı: Gözenek Eşitleme & Göz Bakımı")
         st.markdown("""
-        - **🚿 Duş:** Lifsiz, hızlı 3 dakikalık duş[cite: 1]. `Bioderma Sébium Gel` ile köpürtüp durulanın[cite: 1]. Duş çıkışı kasıklara `Dalin Likit Pudra`[cite: 1].
+        - **🚿 Duş:** Lifsiz, hızlı 3 dakikalık duş. `Bioderma Sébium Gel` ile köpürtüp durulanın. Duş çıkışı kasıklara `Dalin Likit Pudra`.
         - **🌙 Akşam Bakımı:**
-          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayın -> `Neutrogena Retinol Boost Göz Kremi` sürün -> `CeraVe Nemlendirici Losyon` ile nemlendirin[cite: 1].
-          2. Duş sonrası kuru pamuğa `The Ordinary Glycolic Acid %7 Toning Solution` döküp koltuk altı ve kasık kıvrımlarını silin[cite: 1]. Kuruyunca kasığa hafifçe CeraVe losyon sürün[cite: 1].
+          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayın -> `Neutrogena Retinol Boost Göz Kremi` sürün -> `CeraVe Nemlendirici Losyon` ile nemlendirin.
+          2. Duş sonrası kuru pamuğa `The Ordinary Glycolic Acid %7 Toning Solution` döküp koltuk altı ve kasık kıvrımlarını silin. Kuruyunca kasığa hafifçe CeraVe losyon sürün.
         """)
 
     with tp3:
         st.subheader("Çarşamba: Cilt Bariyeri Dinlendirme")
         st.markdown("""
-        - **🚿 Duş:** Standart durulanma duşu[cite: 1]. `Sebamed Şampuan` + `Bioderma Sébium Gel`[cite: 1].
+        - **🚿 Duş:** Standart durulanma duşu. `Sebamed Şampuan` + `Bioderma Sébium Gel`.
         - **🌙 Akşam Bakımı:**
-          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayın[cite: 1].
-          2. Yalnızca bolca `CeraVe Nemlendirici Losyon` sürün (Asit ve retinol uygulanmaz, bariyer toparlanır)[cite: 1].
+          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayın.
+          2. Yalnızca bolca `CeraVe Nemlendirici Losyon` sürün (Asit ve retinol uygulanmaz, bariyer toparlanır).
         """)
 
     with tp4:
         st.subheader("Perşembe: 2. Retinol & Lifleme Gecesi")
         st.markdown("""
-        - **🏋️ Spor Öncesi:** Bacak içine `Decathlon Aptonia Anti-Chafing Krem`[cite: 1].
-        - **🚿 Duş:** `Sebamed Şampuan` + `Doğal Kabak Lifi` ve `Bioderma Sébium Gel` ile derin lifleme[cite: 1].
+        - **🏋️ Spor Öncesi:** Bacak içine `Decathlon Aptonia Anti-Chafing Krem`.
+        - **🚿 Duş:** `Sebamed Şampuan` + `Doğal Kabak Lifi` ve `Bioderma Sébium Gel` ile derin lifleme.
         - **🌙 Akşam Bakımı (Retinol):**
-          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayıp tam kurulayın[cite: 1].
-          2. 1 bezelye tanesi `The Ordinary Retinol %0.2 in Squalane` uygulayın[cite: 1].
-          3. Kaz ayaklarına `Neutrogena Retinol Boost Göz Kremi` sürün[cite: 1].
-          4. 5 dk sonra `CeraVe Nemlendirici Losyon` ile kilitleyin[cite: 1].
-          5. Koltuk altına haftanın 2. dozu olan `Driclor Roll-on` uygulayın[cite: 1].
+          1. Yüzü `CeraVe Blemish Control Cleanser` ile yıkayıp tam kurulayın.
+          2. 1 bezelye tanesi `The Ordinary Retinol %0.2 in Squalane` uygulayın.
+          3. Kaz ayaklarına `Neutrogena Retinol Boost Göz Kremi` sürün.
+          4. 5 dk sonra `CeraVe Nemlendirici Losyon` ile kilitleyin.
+          5. Koltuk altına haftanın 2. dozu olan `Driclor Roll-on` uygulayın.
         """)
 
     with tp5:
         st.subheader("Cuma: Hijyen & Kasık Tonik Bakımı")
         st.markdown("""
-        - **🚿 Duş:** Hızlı ılık duş + `Sebamed Şampuan` + `Bioderma Sébium Gel`[cite: 1]. Duş sonrası `Dalin Likit Pudra`[cite: 1].
+        - **🚿 Duş:** Hızlı ılık duş + `Sebamed Şampuan` + `Bioderma Sébium Gel`. Duş sonrası `Dalin Likit Pudra`.
         - **🌙 Akşam Bakımı:**
-          1. Yüzü yıka -> `Neutrogena Retinol Boost Göz Kremi` -> `CeraVe Nemlendirici Losyon`[cite: 1].
-          2. Koltuk altı ve kasık bölgesini pamukla `The Ordinary Glycolic Acid %7 Toning Solution` ile silin[cite: 1].
+          1. Yüzü yıka -> `Neutrogena Retinol Boost Göz Kremi` -> `CeraVe Nemlendirici Losyon`.
+          2. Koltuk altı ve kasık bölgesini pamukla `The Ordinary Glycolic Acid %7 Toning Solution` ile silin.
         """)
 
     with tp6:
         st.subheader("Cumartesi: Serbest Dinlenme")
         st.markdown("""
-        - **🚿 Duş:** Günlük ferahlık duşu[cite: 1].
-        - **🌙 Akşam Bakımı:** Yüzü `CeraVe Blemish Control Cleanser` ile yıkayıp sadece `CeraVe Nemlendirici Losyon` sürün[cite: 1].
+        - **🚿 Duş:** Günlük ferahlık duşu.
+        - **🌙 Akşam Bakımı:** Yüzü `CeraVe Blemish Control Cleanser` ile yıkayıp sadece `CeraVe Nemlendirici Losyon` sürün.
         """)
 
     with tp7:
         st.subheader("Pazar: Saç Derisi Detoksu & Haftalık Kapanış")
         st.markdown("""
-        - **💆 Saç Derisi Detoksu:** Duşa girmeden 15 dakika önce kuru saç diplerine damlalıkla `The Ordinary Glycolic Acid %7 Toning Solution` damlatıp bekletin[cite: 1].
-        - **🚿 Duş:** `Sebamed Yağlı Saçlar İçin Şampuan` ile 2 tur yıkayarak pudra/tuz kalıntılarını arındırın[cite: 1]. `Bioderma Sébium Gel` ile vücudu yıkayın[cite: 1].
-        - **🌙 Akşam Bakımı:** Yüzü yıkayın -> Kaz ayaklarına `Neutrogena Retinol Boost Göz Kremi` sürün -> `CeraVe Nemlendirici Losyon` uygulayarak yeni haftaya hazır olun[cite: 1].
+        - **💆 Saç Derisi Detoksu:** Duşa girmeden 15 dakika önce kuru saç diplerine damlalıkla `The Ordinary Glycolic Acid %7 Toning Solution` damlatıp bekletin.
+        - **🚿 Duş:** `Sebamed Yağlı Saçlar İçin Şampuan` ile 2 tur yıkayarak pudra/tuz kalıntılarını arındırın. `Bioderma Sébium Gel` ile vücudu yıkayın.
+        - **🌙 Akşam Bakımı:** Yüzü yıkayın -> Kaz ayaklarına `Neutrogena Retinol Boost Göz Kremi` sürün -> `CeraVe Nemlendirici Losyon` uygulayarak yeni haftaya hazır olun.
         """)
