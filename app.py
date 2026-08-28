@@ -490,7 +490,7 @@ with tab_ai:
                         try:
                             # Gemini Chat API Çağrısı
                             response = client.models.generate_content(
-                                model="gemini-2.5-flash",
+                                model="gemini-3.6-flash",
                                 contents=gonderilecek_mesaj,
                                 config=genai.types.GenerateContentConfig(
                                     system_instruction=sistem_promptu,
