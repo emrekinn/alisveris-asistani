@@ -3,13 +3,14 @@ import json
 import urllib.parse
 from google import genai
 
+# Sayfa Yapılandırması
 st.set_page_config(
     page_title="Kişisel Stil, AI Danışman & Bakım Asistanı",
     page_icon="👔",
     layout="wide"
 )
 
-# Profil Yükle
+# Profil Verisini Yükle
 @st.cache_data
 def profil_yukle():
     with open("profil.json", "r", encoding="utf-8") as f:
@@ -17,22 +18,37 @@ def profil_yukle():
 
 profil = profil_yukle()
 
-# Beden Motoru
+# Beden & Kalıp Hesaplama Motoru
 def beden_tavsiyesi_uret(parca_adi):
     adi = parca_adi.lower()
     if any(k in adi for k in ["bot", "sneaker", "loafer", "ayakkabı", "terlik", "espadril"]):
-        return {"beden": "44 - 44.5 Numara (EUR)", "detay": "Ayak: 28.5 cm (11.5 cm Taraklı). Dar/sert kalıplarda 44.5 veya 45 seçin."}
-    elif any(k in adi for k in ["pantolon", "chino", "jean", "kadife", "şort", "eşofman"]):
-        return {"beden": "34 / 32 (veya L Beden)", "detay": "Bel: 98 cm | Uyluk: 61 cm. Kasılmayı önlemek için 'Tapered / Düz Kesim' veya kompresyonlu seçin."}
+        return {
+            "beden": "44 - 44.5 Numara (EUR)",
+            "detay": "Ayak: 28.5 cm (11.5 cm Taraklı). Dar/sert kalıplarda 44.5 veya 45 tercih edin."
+        }
+    elif any(k in adi for k in ["pantolon", "chino", "jean", "kadife", "şort", "eşofman", "tayt"]):
+        return {
+            "beden": "34 / 32 (veya L Beden)",
+            "detay": "Bel: 98 cm | Uyluk: 61 cm. Bacak kaslarını kasmaması için 'Tapered / Düz Kesim' veya esnek kompresyon seçin."
+        }
     elif any(k in adi for k in ["boxer", "içlik", "fanila", "çorap", "krem"]):
-        return {"beden": "L Beden / Standart", "detay": "Sürtünmeyi önleyen uzun paçalı veya dikişsiz modeller."}
+        return {
+            "beden": "L Beden / Standart",
+            "detay": "Sürtünmeyi ve tahrişi önleyen dikişsiz veya uzun paçalı (Long Leg) modeller."
+        }
     elif "kemer" in adi:
-        return {"beden": "95 - 100 cm", "detay": "98 cm pantolon beli için ideal orta delik boyudur."}
-    elif any(k in adi for k in ["gömlek", "tişört", "polo", "kazak", "sweatshirt", "ceket", "kaban", "parka", "hırka", "yelek", "blazer", "overshirt", "atlet"]):
-        return {"beden": "L (Regular) / XL (Slim Fit)", "detay": "Göğüs: 105 cm | Omuz: 54 cm | Biceps: 40-45 cm. Sporcu göğsünü sıkmaması için L beden."}
+        return {
+            "beden": "95 - 100 cm",
+            "detay": "98 cm pantolon beli için ideal orta delik boyudur."
+        }
+    elif any(k in adi for k in ["gömlek", "tişört", "polo", "kazak", "sweatshirt", "ceket", "kaban", "parka", "hırka", "yelek", "blazer", "overshirt", "atlet", "henley"]):
+        return {
+            "beden": "L (Regular) / XL (Slim Fit)",
+            "detay": "Göğüs: 105 cm | Omuz: 54 cm | Biceps: 40-45 cm. Sporcu göğsünü sıkmaması için Regular L tercih edin."
+        }
     return None
 
-# Link Butonları
+# Arama Butonları
 def link_butonlari(arama_terimi, tip="giyim"):
     q = urllib.parse.quote(arama_terimi)
     g_url = f"https://www.google.com/search?tbm=shop&q={q}"
@@ -47,16 +63,20 @@ def link_butonlari(arama_terimi, tip="giyim"):
     with b3:
         st.link_button("🏷️ Cimri", c_url, use_container_width=True)
 
-# Kart Çizici
+# Ürün Kartı Çizici
 def urun_kartlari_ciz(liste, kategori_tipi="giyim"):
+    if not liste:
+        st.info("Bu kategoride henüz parça listelenmedi.")
+        return
+        
     cols = st.columns(2)
     for idx, item in enumerate(liste):
         col = cols[idx % 2]
         with col:
             with st.container(border=True):
-                parca_adi = item.get("parca") or item.get("urun") or item.get("parfum")
+                parca_adi = item.get("parca") or item.get("urun") or item.get("parfum") or ""
                 alt_bilgi = item.get("renk") or item.get("kategori") or ""
-                arama_terimi = item.get("arama") or item.get("arama_terimi")
+                arama_terimi = item.get("arama") or item.get("arama_terimi") or parca_adi
                 
                 st.subheader(parca_adi)
                 if alt_bilgi:
@@ -70,11 +90,11 @@ def urun_kartlari_ciz(liste, kategori_tipi="giyim"):
                 
                 link_butonlari(arama_terimi, kategori_tipi)
 
-# AI İstemci Yardımcısı
+# AI İstemci Yardımcısı (Yedekli Model Havuzu)
 def ai_yanit_uret(prompt_metni, sistem_talimati):
     api_key = st.secrets.get("GEMINI_API_KEY")
     if not api_key:
-        return "⚠️ Lütfen Streamlit Secrets paneline `GEMINI_API_KEY` ekleyin."
+        return "⚠️ Lütfen Streamlit Secrets paneline `GEMINI_API_KEY` anahtarınızı ekleyin."
     
     client = genai.Client(api_key=api_key)
     modeller = ["gemini-3.6-flash", "gemini-3.6-flash-lite", "gemini-1.5-flash"]
@@ -92,21 +112,25 @@ def ai_yanit_uret(prompt_metni, sistem_talimati):
             return res.text
         except Exception:
             continue
-    return "Google sunucularında anlık yoğunluk var. Lütfen 10 saniye sonra tekrar deneyin."
+    return "Google sunucularında anlık yoğunluk yaşanıyor. Lütfen 10-15 saniye sonra tekrar deneyin."
 
 # Sistem Promptu
 SISTEM_PROMPTU = f"""
-Sen kullanıcının kişisel stilisti, imaj danışmanı ve kozmetik içerik denetçisisin.
-KULLANICI:
-- Yaş/Meslek: 38 yaşında erkek İngilizce Öğretmeni (Smart-Casual / Old Money tarzı).
-- Fizik: 180 cm, 86 kg, Atletik V-Vücut (Omuz: 54 cm, Göğüs: 105 cm, Bel: 92 cm, Biceps: 40-45 cm, Uyluk: 61 cm bacak kası, Ayak: 28.5 cm taraklı).
-- Palet: Soft Autumn (Adaçayı, zeytin yeşili/haki, karamel, taba, kum beji, taş rengi, ekru, vizon, çikolata kahve, mat lacivert).
-- Kaçınılacaklar: Zifiri siyah (spor hariç), çiğ parlak beyaz, parlak neonlar, aşırı dar tayt gibi pantolonlar.
-- Spor & Sağlık: Haftada 4 gün fitness (Pzt, Sal, Per, Cum), iç bacak sürtünme hassasiyeti (Aptonia krem kullanıyor).
-- Bakım: Yağlı/pürüzlü cilt, kaz ayakları, seyrek tepe saç (hacim pudrası + fiber).
-- Gardırop: {json.dumps(profil.get('gardrop_arama_listesi', {}), ensure_ascii=False)}
+Sen kullanıcının kişisel stilisti, imaj danışmanı ve kozmetik/kumaş içerik denetçisisin.
+KULLANICI VERİLERİ:
+- Yaş / Meslek: 38 yaşında erkek İngilizce Öğretmeni (Okulda saygın, akademik, otoriter ama modern Smart-Casual / Old Money tarzı).
+- Fizik: 180 cm boy, 86 kg, Atletik V-Vücut (Omuz: 54 cm, Göğüs: 105 cm, Bel: 92 cm, Biceps: 40-45 cm, Uyluk: 61 cm bacak kası, Ayak: 28.5 cm taraklı kalıp).
+- Renk Paleti: Soft Autumn (Adaçayı yeşili, zeytin/haki, sıcak karamel/taba, kum beji, taş rengi, kırık beyaz/ekru, vizon, çikolata kahve, mat lacivert).
+- Kaçınılacaklar: Zifiri siyah (spor hariç), çiğ parlak beyaz, neon tonlar, tayt gibi saran aşırı dar pantolonlar.
+- Spor & Sağlık: Haftada 4 gün fitness antrenmanı (Pzt, Sal, Per, Cum), iç bacak sürtünme hassasiyeti (Aptonia sürtünme önleyici krem kullanıyor).
+- Cilt & Saç: Yağlanmaya ve pürüzlere meyilli cilt, kaz ayakları (retinol göz kremi), seyrek tepe saç (tuz spreyi + hacim pudrası + fiber).
+- Gardırop Kapsülü: {json.dumps(profil.get('gardrop_arama_listesi', {}), ensure_ascii=False)}
 
-Üslup: Net, profesyonel, gereksiz laf kalabalığı yapmayan, doğrudan çözüme odaklanan karizmatik bir uzman.
+GÖREVLERİN:
+1. Kombin ve Stil: Sorulan hava durumu, gün veya ortama göre gardırop parçalarını birbiriyle eşleştir, kumaş ve kalıp önerileri ver.
+2. Kumaş / Ürün Denetimi: Kullanıcı bir ürün içeriği sorduğunda terletme, döküm, kırışma ve V-fiziğe uygunluk açısından puanla ve eleştir.
+3. Cilt / Bakım Desteği: Rutin çakışmalarını denetle, anlık cilt durumlarına acil çözümler sun.
+Üslubun: Profesyonel, net, samimi, gereksiz laf kalabalığı yapmayan ve doğrudan sonuca odaklanan bir stilist ol.
 """
 
 # --- YAN PANEL ---
@@ -131,7 +155,7 @@ with st.sidebar:
     - **Ayak:** {ayak['ayak_uzunlugu_cm']} cm (Taraklı Kalıp)
     """)
 
-# --- 4 ANA SEKME ---
+# --- ANA EKRAN SEKMELERİ (4 ANA MODÜL) ---
 st.title("👔 Kişisel Stil, AI Danışman & Bakım Asistanı")
 
 tab_ai, tab_kombin, tab_gardrop, tab_bakim = st.tabs([
@@ -144,8 +168,8 @@ tab_ai, tab_kombin, tab_gardrop, tab_bakim = st.tabs([
 # ==================== 1. CANLI AI STİLİST & AKILLI ARAÇLAR ====================
 with tab_ai:
     st.header("🤖 Canlı AI Stilist & Akıllı Araçlar")
+    st.caption("Doğal dilde stil danışmanlığı alın, gardırop eksiklerinizi taratın veya alışveriş onaylayıcısını kullanın.")
     
-    # 3 Hızlı Akıllı Modül
     exp1, exp2, exp3 = st.columns(3)
     
     with exp1:
@@ -186,7 +210,7 @@ with tab_ai:
     
     if "chat_messages" not in st.session_state:
         st.session_state.chat_messages = [
-            {"role": "assistant", "content": "Merhaba! Ben kişisel stilistiniz ve bakım denetçinizim. Yarınki ders kombinlerinizi planlayabilir, bir kıyafetin kumaş kalitesini analiz edebilir veya spor salonu/cilt bakım sorularınızı yanıtlayabilirim."}
+            {"role": "assistant", "content": "Merhaba! Ben kişisel stilistiniz ve bakım denetçinizim. Yarınki ders kombinlerinizi planlayabilir, bir kıyafetin kumaş kalitesini değerlendirebilir veya spor salonu/cilt bakım sorularınızı yanıtlayabilirim."}
         ]
         
     chat_box = st.container(height=380)
@@ -258,30 +282,32 @@ with tab_gardrop:
         ]
     )
     
+    g_list = profil.get("gardrop_arama_listesi", {})
+    
     if "Sonbahar" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["sonbahar_kapsulu"], "giyim")
+        urun_kartlari_ciz(g_list.get("sonbahar_kapsulu", []), "giyim")
     elif "Kış" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["kis_kapsulu"], "giyim")
+        urun_kartlari_ciz(g_list.get("kis_kapsulu", g_list.get("kis_eklentileri", [])), "giyim")
     elif "İlkbahar" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["ilkbahar_kapsulu"], "giyim")
+        urun_kartlari_ciz(g_list.get("ilkbahar_kapsulu", g_list.get("ilkbahar_eklentileri", [])), "giyim")
     elif "Yaz" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["yaz_kapsulu"], "giyim")
+        urun_kartlari_ciz(g_list.get("yaz_kapsulu", []), "giyim")
     elif "Spor Salonu" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["spor_salonu_ve_antrenman"], "giyim")
+        urun_kartlari_ciz(g_list.get("spor_salonu_ve_antrenman", []), "giyim")
     elif "Rahat Giyim" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["rahat_giyim_ve_spor"], "giyim")
+        urun_kartlari_ciz(g_list.get("rahat_giyim_ve_spor", []), "giyim")
     elif "Ev Giyimi" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["ev_giyimi"], "giyim")
+        urun_kartlari_ciz(g_list.get("ev_giyimi", []), "giyim")
     elif "İç Giyim" in kategori_secimi:
-        urun_kartlari_ciz(profil["gardrop_arama_listesi"]["ic_giyim_ve_corap"], "giyim")
+        urun_kartlari_ciz(g_list.get("ic_giyim_ve_corap", []), "giyim")
     elif "Aksesuarlar" in kategori_secimi:
-        urun_kartlari_ciz(profil["aksesuar_listesi"], "giyim")
+        urun_kartlari_ciz(profil.get("aksesuar_listesi", []), "giyim")
     elif "Parfümler" in kategori_secimi:
         st.markdown("##### ☀️ İlkbahar & Yaz")
-        urun_kartlari_ciz(profil["parfum_onerileri"]["sicak_mevsimler_ilkbahar_yaz"], "parfum")
+        urun_kartlari_ciz(profil.get("parfum_onerileri", {}).get("sicak_mevsimler_ilkbahar_yaz", []), "parfum")
         st.divider()
         st.markdown("##### ❄️ Sonbahar & Kış")
-        urun_kartlari_ciz(profil["parfum_onerileri"]["soguk_mevsimler_sonbahar_kis"], "parfum")
+        urun_kartlari_ciz(profil.get("parfum_onerileri", {}).get("soguk_mevsimler_sonbahar_kis", []), "parfum")
 
 # ==================== 4. KİŞİSEL BAKIM & DUŞ TAKVİMİ ====================
 with tab_bakim:
@@ -352,4 +378,4 @@ with tab_bakim:
         
     st.divider()
     st.subheader("🛒 Onaylı Bakım Sepeti & Linkler")
-    urun_kartlari_ciz(profil["kisisel_bakim_ve_hijyen_listesi"], "bakim")
+    urun_kartlari_ciz(profil.get("kisisel_bakim_ve_hijyen_listesi", []), "bakim")
